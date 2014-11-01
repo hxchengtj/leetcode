@@ -1,6 +1,3 @@
-#include <iostream>
-#include <vector>
-using namespace std;
 class Solution {
 public:
     vector<int> searchRange(int A[], int n, int target) {
@@ -57,11 +54,4 @@ public:
     }
 
 };
-
-int main() {
-    Solution s;
-    int A[2] = {2, 2};
-    s.searchRange(A, 2, 2);
-    return 0;
-}
 
