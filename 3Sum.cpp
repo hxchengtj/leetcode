@@ -6,9 +6,9 @@ public:
         vector<int> v(3);
         vector<vector<int> > ans;
         int i, j, k, n, t;
-        n = num.size();					//unsignedºÍintÇø±ğ(0-2:unsigned»áÒç³ö)
+        n = num.size();					//unsignedå’ŒintåŒºåˆ«(0-2:unsignedä¼šæº¢å‡º)
         for(i = 0; i < n-2; i++) {
-            if(i > 0 && num[i] == num[i-1])  //ÅĞÖØ
+            if(i > 0 && num[i] == num[i-1])  //åˆ¤é‡
                 continue;
             k = n-1;
             j = i+1;

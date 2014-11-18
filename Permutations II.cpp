@@ -1,7 +1,7 @@
 // review
 struct node {
     int num;
-    int a;      //numÊıÄ¿
+    int a;      // numæ•°ç›®
     node(int x, int y):num(x), a(y) {};
 };
 class Solution {
