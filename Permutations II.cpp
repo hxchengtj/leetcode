@@ -47,3 +47,41 @@ public:
         }
     }
 };
+
+//redo
+//version2
+
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> ret;
+        if(nums.size() == 0)
+            return ret;
+        sort(nums.begin(), nums.end());
+        vector<pair<int, int>> a;
+        a.push_back(make_pair(nums[0], 1));
+        for(int i = 1; i < nums.size(); i++) {
+            if(a.back().first == nums[i])
+                a.back().second++;
+            else
+                a.push_back(make_pair(nums[i], 1));
+        }
+        vector<int> v(nums.size(), 0);
+        dfs(a, v, ret, 0);
+        return ret;
+    }
+    void dfs(vector<pair<int, int>> &a, vector<int> &v, vector<vector<int>> &ret, int x) {
+        if(x == v.size()) {
+            ret.push_back(v);
+            return;
+        }
+        for(int i = 0;i < a.size(); i++) {
+            if(a[i].second > 0) {
+                a[i].second--;
+                v[x] = a[i].first;
+                dfs(a, v, ret, x+1);
+                a[i].second++;
+            }
+        }
+    }
+};
