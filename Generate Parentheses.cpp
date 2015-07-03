@@ -35,3 +35,24 @@ public:
         }
     }
 };
+
+// redo
+// version2
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> v[n+1];
+        v[0].push_back("");
+        for(int i = 1; i <= n; i++) 
+            for(int j = 0; j < i; j++) {
+                vector<string> &a = v[j];
+                vector<string> &b = v[i-j-1];
+                for(string &v1:a)
+                    for(string &v2:b) {
+                        string s = v1 + '(' + v2 + ')';
+                        v[i].push_back(s);
+                    }
+            }
+        return v[n];
+    }
+};
