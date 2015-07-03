@@ -29,3 +29,29 @@ public:
         return atoi(s.top().c_str());
     }
 };
+
+
+//redo
+// version2
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> stk;
+        for(string &s: tokens) {
+            if(isdigit(s.back())) stk.push(stoi(s));
+            else {
+                int a = stk.top();
+                stk.pop();
+                int b = stk.top();
+                stk.pop();
+                switch(s.front()) {
+                    case '+': stk.push(b+a); break;
+                    case '-': stk.push(b-a); break;
+                    case '*': stk.push(b*a); break;
+                    case '/': stk.push(b/a); break;
+                }
+            }
+        }
+        return stk.top();
+    }
+};
