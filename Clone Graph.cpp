@@ -1,3 +1,4 @@
+//redo
 /**
  * Definition for undirected graph.
  * struct UndirectedGraphNode {
@@ -8,17 +9,17 @@
  */
 class Solution {
 public:
-    unordered_map<int, UndirectedGraphNode *> a;
+    UndirectedGraphNode *clone(UndirectedGraphNode *node, unordered_map<int, UndirectedGraphNode *>& m) {
+        if(node == NULL) return NULL;
+        if(m.find(node->label) != m.end()) return m[node->label];
+        UndirectedGraphNode *a = new UndirectedGraphNode(node->label);
+        m[node->label] = a;
+        for(auto n: node->neighbors)
+            a->neighbors.push_back(clone(n, m));
+        return a;
+    }
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
-        if(node == NULL)
-            return NULL;
-        if(a.find(node->label) != a.end())
-            return a[node->label];
-        UndirectedGraphNode *n = new UndirectedGraphNode(node->label);
-        int i;
-        a[n->label] = n;
-        for(i = 0; i < node->neighbors.size(); i++) 
-            n->neighbors.push_back(cloneGraph(node->neighbors[i]) );
-        return n;
+        unordered_map<int, UndirectedGraphNode *> m;
+        return clone(node, m);
     }
 };
