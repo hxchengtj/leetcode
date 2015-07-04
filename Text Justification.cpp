@@ -44,3 +44,44 @@ public:
         return ans;
     }
 };
+
+//redo
+class Solution {
+public:
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        vector<string> ans;
+        if(words.size() == 0) return ans;
+        int i, j = 0, k, n = words.size(), l = words[0].size();
+        for(i = 1; i < n; i++) {
+            if(l+1+words[i].size() <= maxWidth) l += 1+words[i].size();
+            else {
+                string s = words[j];
+                if(i == j+1) s.resize(maxWidth, ' ');
+                else {
+                    int totspace = maxWidth-l;
+                    int space = totspace/(i-j-1);
+                    int extraspace = totspace%(i-j-1);
+                    for(k = j+1; k <= j+extraspace; k++) {
+                        s.append(space+2, ' ');
+                        s.append(words[k]);
+                    }
+                    for(;k < i;k++) {
+                        s.append(space+1, ' ');
+                        s.append(words[k]);
+                    }
+                }
+                ans.push_back(s);
+                j = i;
+                l = words[i].size();
+            }
+        }
+        string s = words[j];
+        for(i = j+1;i < n; i++) {
+            s.append(1, ' ');
+            s.append(words[i]);
+        }
+        s.resize(maxWidth, ' ');
+        ans.push_back(s);
+        return ans;
+    }
+};
