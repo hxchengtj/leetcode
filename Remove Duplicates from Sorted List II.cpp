@@ -34,3 +34,38 @@ public:
         
     }
 };
+
+//redo
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode HEAD(0);
+        HEAD.next = head;
+        ListNode* p = &HEAD;
+        while(p->next) {
+            ListNode* q = p->next;
+            bool flag = false;
+            while(q->next && q->val == q->next->val) {
+                flag = true;
+                ListNode* t = q->next;
+                q->next = t->next;
+                delete t;
+            }
+            if(flag) {
+                p->next = q->next;
+                delete q;
+            }
+            else
+                p = p->next;
+        }
+        return HEAD.next;
+    }
+};
