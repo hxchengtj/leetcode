@@ -24,3 +24,33 @@ public:
         return ans;
     }
 };
+
+//redo
+//version2
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        if(nums.size() < 3)
+            return 0;
+        sort(nums.begin(), nums.end());
+        int ans = nums[0]+nums[1]+nums[2], n = nums.size();
+        for(int i = 0; i < n-2; i++) {
+            int j = i+1, k = n-1;
+            while(j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if(sum < target) {
+                    if(abs(target-ans) > abs(target-sum))
+                        ans = sum;
+                    j++;
+                }
+                else if(sum > target) {
+                    if(abs(target-ans) > abs(target-sum))
+                        ans = sum;                    
+                    k--;
+                }
+                else return sum;
+            }
+        }
+        return ans;
+    }
+};
