@@ -13,3 +13,20 @@ public:
         return maxp;
     }
 };
+
+//redo
+//review
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        if(nums.size() == 0) return 0;
+        int ans = nums[0], maxval = nums[0], minval = nums[0];
+        for(int i = 1; i < nums.size(); i++) {
+            int tmp = max({nums[i], nums[i]*maxval, nums[i]*minval});
+            minval = min({nums[i], nums[i]*maxval, nums[i]*minval});
+            maxval = tmp;
+            ans = max(ans, maxval);
+        }
+        return ans;
+    }
+};
