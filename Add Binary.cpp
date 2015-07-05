@@ -32,3 +32,23 @@ public:
         return s;
     }
 };
+
+
+//redo
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string s;
+        reverse(a.begin(), a.end());
+        reverse(b.begin(), b.end());
+        size_t i = 0, j = 0, r = 0;
+        while(i < a.size() || j < b.size() || r) {
+            if(i < a.size()) r += a[i++] - '0';
+            if(j < b.size()) r += b[j++] - '0';
+            s.push_back((r&1)+'0');
+            r = r >> 1;
+        }
+        reverse(s.begin(), s.end());
+        return s;
+    }
+};
