@@ -47,3 +47,32 @@ public:
         return b;
     }
 };
+
+//redo
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordDict) {
+        unordered_map<string, int> m;
+        queue<string> q;
+        m[beginWord] = 1;
+        q.push(beginWord);
+        while(!q.empty()) {
+            string w = q.front();
+            q.pop();
+            if(w == endWord) return m[w];
+            int l = m[w];
+            for(int i = 0; i < w.size(); i++) {
+                char co = w[i];
+                for(char c = 'a'; c <= 'z'; c++) {
+                    w[i] = c;
+                    if(wordDict.find(w) != wordDict.end() && m.find(w) == m.end()) {
+                        m[w] = l+1;
+                        q.push(w);
+                    }
+                }
+                w[i] = co;
+            }
+        }
+        return 0;
+    }
+};
