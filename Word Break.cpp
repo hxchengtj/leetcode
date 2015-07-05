@@ -17,3 +17,22 @@ public:
         return g[n];
     }
 };
+
+
+//redo
+class Solution {
+public:
+    bool wordBreak(string s, unordered_set<string>& wordDict) {
+        int n = s.size();
+        vector<bool> f(n+1, false);
+        f[0] = true;
+        for(int i = 1; i <= n; i++)
+            for(int j = 0; j < i; j++) {
+                if(f[j] && wordDict.find(s.substr(j, i-j)) != wordDict.end()) {
+                    f[i] = true;
+                    break;
+                }
+            }
+        return f[n];
+    }
+};
