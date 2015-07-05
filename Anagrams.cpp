@@ -24,3 +24,24 @@ public:
         return ans;
     }
 };
+
+//redo
+class Solution {
+public:
+    vector<string> anagrams(vector<string>& strs) {
+        vector<string> v;
+        unordered_map<string, vector<size_t>> m;
+        for(size_t i = 0; i < strs.size(); i++) {
+            string s = strs[i];
+            sort(s.begin(), s.end());
+            m[s].push_back(i);
+        }
+        for(auto &p:m) {
+            if(p.second.size() > 1) {
+                for(auto i:p.second) 
+                    v.push_back(strs[i]);
+            }
+        }
+        return v;
+    }
+};
