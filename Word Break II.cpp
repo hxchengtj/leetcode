@@ -40,3 +40,37 @@ public:
 };
 
 
+//version2
+class Solution {
+public:
+    bool __wordBreak(string s, unordered_set<string>& wordDict, vector<bool> &f, int b, string &sen, vector<string> &ans) {
+        if(b == s.size()) {
+            ans.push_back(sen);
+            return true;
+        }
+        if(f[b] == false) return false;
+        bool flag = false;
+        for(int i = b+1; i <= s.size(); i++) {
+            string w = s.substr(b, i-b);
+            if(wordDict.find(w) != wordDict.end()) {
+                int a = sen.size();
+                if(a > 0) sen.push_back(' ');
+                sen.append(w);
+                // || 不可以是因为 || 的优化 flag为true不执行下一步
+                flag = (flag | __wordBreak(s, wordDict, f, i, sen, ans));
+                sen.resize(a);
+            }
+        }
+        f[b] = flag;
+        return flag;
+    }
+    vector<string> wordBreak(string s, unordered_set<string>& wordDict) {
+        vector<string> ans;
+        int n = s.size();
+        vector<bool> f(n, true);
+        string sen;
+        __wordBreak(s, wordDict, f, 0, sen, ans);
+        return ans;
+    }
+};
+
