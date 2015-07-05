@@ -44,3 +44,25 @@ public:
             a.pop_back();
     }
 };
+
+//redo
+//version2
+class Solution {
+public:
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> ans;
+        int i, j, k, n = s.size();
+        for(i = max(1, n-9); i <= 3 && i+3 <= n; i++) {
+            if(i > 1 && s[0] == '0' || stoi(s.substr(0, i)) > 255) break;
+            for(j = max(i+1, n-6); j-i <= 3 && j + 2 <= n; j++) {
+                if(j > i+1 && s[i] == '0' || stoi(s.substr(i, j-i)) > 255) break;
+                for(k = max(j+1, n-3); k-j <= 3 && k+1<= n; k++) {
+                    if(k > j+1 && s[j] == '0' || stoi(s.substr(j, k-j)) > 255) break;
+                    if(n-k > 1 && s[k] == '0' || stoi(s.substr(k, n-k)) > 255) continue;
+                    ans.push_back(s.substr(0, i)+'.'+s.substr(i, j-i)+'.'+s.substr(j, k-j)+'.'+s.substr(k, n-k));
+                }
+            }
+        }
+        return ans;
+    }
+};
