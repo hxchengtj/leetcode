@@ -57,3 +57,44 @@ public:
         return si.top();
     }
 };
+
+//redo
+class Solution {
+public:
+    int calculate(string s) {
+        stack<int> vals;
+        stack<char> ops;
+        int b = 0, e = 0;
+        while(b <= s.size()) {
+            if(b == s.size() || s[b] == '+' || s[b] == '-' || s[b] == ')') {
+                while(!ops.empty()) {
+                    if(ops.top() == '(') {
+                        if(b < s.size() && s[b] == ')') ops.pop();
+                        break;
+                    }
+                    int a = vals.top();
+                    vals.pop();
+                    switch(ops.top()) {
+                        case '+': vals.top() += a; break;
+                        case '-': vals.top() -= a; break;
+                    }
+                    ops.pop();
+                       
+                }
+                if(b < s.size() && (s[b] == '+' || s[b] == '-'))  ops.push(s[b]);
+                b++;
+            }
+            else if(s[b] == '(')
+                ops.push(s[b++]);
+            else if(isdigit(s[b])) {
+                e = b+1;
+                while(e < s.size() && isdigit(s[e])) e++;
+                int v = stoi(s.substr(b, e-b));
+                vals.push(v);
+                b = e;
+            }
+            else b++;
+        }
+        return vals.top();
+    }
+};
