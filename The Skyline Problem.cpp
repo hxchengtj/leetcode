@@ -1,3 +1,4 @@
+//redo
 class Solution {
 public:
     vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
@@ -22,18 +23,14 @@ public:
                 if(m[-t] == 0)
                     m.erase(-t);
             }
-            else  {
-                if(m.find(t) != m.end())
-                    m[t]++;
-                else
-                    m.insert(make_pair(t, 1));
-            }
+            else  
+                m[t]++;
             if(i != v.size()-1 && b == v[i+1].first) 
                 continue;
             if(m.empty())
                 h = 0;
             else 
-                h = (--m.end())->first;
+                h = prev(m.end())->first;
             if(h != maxh)
                 ret.push_back(make_pair(b, h));
             maxh = h;
