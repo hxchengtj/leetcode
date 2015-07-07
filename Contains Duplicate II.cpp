@@ -16,3 +16,18 @@ public:
         return false;
     }
 };
+
+//redo
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_set<int> s;
+        int b = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            if(i-b>k) s.erase(nums[b++]);
+            if(s.find(nums[i]) != s.end()) return true;
+            else s.insert(nums[i]);
+        }
+        return false;
+    }
+};
