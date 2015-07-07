@@ -61,3 +61,27 @@ public:
         return v;
     }
 };
+
+//redo
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        int c[26];
+        c['A'-'A'] = 0;
+        c['C'-'A'] = 1;
+        c['G'-'A'] = 2;
+        c['T'-'A'] = 3;
+        int a = (1<<20)-1, val = 0;
+        unordered_map<int, int> m;
+        vector<string> v;
+        for(int i = 0; i < s.size(); i++) {
+            val = ((val << 2) & a )| c[s[i]-'A'];
+            if(i >= 9) {
+                m[val]++;
+                if(m[val] == 2)
+                    v.push_back(s.substr(i-9, 10));
+            }
+        }
+        return v;
+    }
+};
