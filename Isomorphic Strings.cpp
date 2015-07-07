@@ -19,3 +19,24 @@ public:
         return true;
     }
 };
+
+//version2
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        char m[256];
+        memset(m, 0, sizeof(char)*256);
+        bitset<256> b;
+        for(size_t i = 0; i < s.size(); i++) {
+            if(m[s[i]]) {
+                if(m[s[i]] != t[i]) return false;
+            }
+            else if(b[t[i]]) return false;
+            else {
+                m[s[i]] = t[i];
+                b[t[i]] = true;
+            }
+        }
+        return true;
+    }
+};
