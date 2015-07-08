@@ -40,3 +40,36 @@ public:
         return order;
     }
 };
+
+
+//redo
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> ans;
+        if(root == NULL) return ans;
+        vector<int> v;
+        queue<TreeNode*> q;
+        q.push(root);
+        q.push(NULL);
+        while(!q.empty()) {
+            TreeNode* t = q.front();
+            q.pop();
+            if(t == NULL) {
+                ans.push_back(v);
+                v.clear();
+                if(!q.empty())
+                    q.push(NULL);
+            }
+            else {
+                v.push_back(t->val);
+                if(t->left) 
+                    q.push(t->left);
+                if(t->right)
+                    q.push(t->right);
+            }
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
