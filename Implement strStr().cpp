@@ -20,3 +20,35 @@ public:
         return -1;
     }
 };
+
+
+//version2
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int m = haystack.size(), n = needle.size();
+        if(n==0) return 0;
+        int i, j;
+        int next[n];
+        next[0] = -1;
+        i = 1, j = -1;
+        while(i < n) {
+            if(j == -1 || needle[i-1] == needle[j])
+                next[i++] = ++j;
+            else j = next[j];
+        }
+        
+        i = 0, j = 0;
+        while(i < m) {
+            if(j == -1) {
+                i++; j++;
+            }
+            else if(haystack[i] == needle[j]) {
+                i++; j++;
+                if(j == n) return i-j;
+            }
+            else j = next[j];
+        }
+        return -1;
+    }
+};
