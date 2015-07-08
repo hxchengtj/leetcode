@@ -56,3 +56,28 @@ public:
         return max_area;
     }
 };
+
+//version2
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& height) {
+        int n = height.size();
+        int ans = 0;
+        if(n == 0) return 0;
+        stack<int> s;
+        int left[n], right[n];
+        for(int i = 0; i < n; i++) {
+            while(!s.empty() && height[i] <= height[s.top()]) s.pop();
+            left[i] = s.empty() ? 0 : s.top() + 1;
+            s.push(i);
+        }
+        s = stack<int>();
+        for(int i = n-1; i >= 0; i--) {
+            while(!s.empty() && height[i] <= height[s.top()]) s.pop();
+            right[i] = s.empty() ? n : s.top();
+            ans = max(ans, height[i]*(right[i]-left[i]));
+            s.push(i);
+        }
+        return ans;
+    }
+};
