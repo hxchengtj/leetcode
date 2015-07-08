@@ -24,3 +24,27 @@ public:
        return ans;
    }
 };
+
+//redo
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int l = 0, r = nums.size();
+        while(l < r) {
+            int m = l + (r-l)/2;
+            if(nums[m] < target) l = m+1;
+            else r = m;
+        }
+        int tl = l;
+        
+        r = nums.size();
+        while(l < r) {
+            int m = l + (r-l)/2;
+            if(nums[m] <= target) l = m+1;
+            else r = m;
+        }
+        
+        if(l == tl) return {-1, -1};
+        else return {tl, l-1};
+    }
+};
