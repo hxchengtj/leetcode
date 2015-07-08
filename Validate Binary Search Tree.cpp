@@ -18,3 +18,26 @@ public:
         return ldr(root->right);
     }
 };
+
+
+//version2
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        TreeNode* p = root;
+        TreeNode* pre = NULL;
+        stack<TreeNode*> stk;
+        while(p || !stk.empty()) {
+            while(p) {
+                stk.push(p);
+                p = p->left;
+            }
+            TreeNode* t = stk.top();
+            if(pre && pre->val >= t->val) return false;
+            stk.pop();
+            pre = t;
+            p = t->right;
+        }
+        return true;
+    }
+};
