@@ -16,3 +16,22 @@ public:
         }
     }
 };
+
+//redo
+class Solution {
+public:
+    TreeNode* __buildTree(vector<int>& preorder, vector<int>& inorder, unordered_map<int, int> &m, int bp, int bi, int n) {
+        if(n == 0) return NULL;
+        TreeNode *root = new TreeNode(preorder[bp]);
+        int k = m[preorder[bp]]-bi;
+        root->left = __buildTree(preorder, inorder, m, bp+1, bi, k);
+        root->right = __buildTree(preorder, inorder, m, bp+1+k, bi+1+k, n-k-1);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        unordered_map<int, int> m;
+        for(int i = 0; i < inorder.size(); i++)
+            m[inorder[i]] = i;
+        return __buildTree(preorder, inorder, m, 0, 0, preorder.size());
+    }
+};
