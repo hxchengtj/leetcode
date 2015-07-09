@@ -26,3 +26,24 @@ public:
         s = a;
     }
 };
+
+//version2
+class Solution {
+public:
+    void reverseWords(string &s) {
+        reverse(s.begin(), s.end());
+        int l = 0, r = 0, k = 0;
+        while(l < s.size() && s[l] == ' ') l++;
+        while(l < s.size()) {
+            r = l;
+            while(r < s.size() && s[r] != ' ') r++;
+            reverse(s.begin()+l, s.begin()+r);
+            copy(s.begin()+l, s.begin()+r, s.begin()+k);
+            k += r-l;
+            l = r;
+            while(l < s.size() && s[l] == ' ') l++;
+            if(l < s.size()) s[k++] = ' ';
+        }
+        s.resize(k);
+    }
+};
