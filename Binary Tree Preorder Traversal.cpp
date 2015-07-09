@@ -19,3 +19,23 @@ public:
         return ans;
     }
 };
+
+
+//redo
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        if(root == NULL) return ans;
+        stack<TreeNode*> stk;
+        stk.push(root);
+        while(!stk.empty()) {
+            TreeNode* t = stk.top();
+            stk.pop();
+            ans.push_back(t->val);
+            if(t->right) stk.push(t->right);
+            if(t->left) stk.push(t->left);
+        }
+        return ans;
+    }
+};
