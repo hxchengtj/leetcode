@@ -27,3 +27,29 @@ public:
         return ans;
     }
 };
+
+
+//redo
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> stk;
+        TreeNode* pre = NULL;
+        TreeNode* p = root;
+        while(p || !stk.empty()) {
+            while(p) {
+                stk.push(p);
+                p = p->left;
+            }
+            TreeNode* t = stk.top();
+            if(t->right == NULL || pre == t->right) {
+                stk.pop();
+                ans.push_back(t->val);
+                pre = t;
+            }
+            else p = t->right;
+        }
+        return ans;
+    }
+};
