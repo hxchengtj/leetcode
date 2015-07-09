@@ -22,3 +22,19 @@ public:
         return profit;
     }
 };
+
+//version2
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int hold0 = INT_MIN, hold1 = INT_MIN;
+        int sell0 = 0, sell1 = 0;
+        for(int i = 0;i < prices.size(); i++) {
+            hold0 = max(hold0, -prices[i]);
+            sell0 = max(sell0, hold0+prices[i]);
+            hold1 = max(hold1, sell0-prices[i]);
+            sell1 = max(sell1, hold1+prices[i]);
+        }
+        return sell1;
+    }
+};
