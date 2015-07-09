@@ -12,35 +12,18 @@ public:
         return ans;
     }
 };
-//backtracking
-/*
+
+
+//version2
 class Solution {
 public:
-    vector<int> ans;
-    vector<bool> f;
-    int a;
-    vector<int> grayCode(int n) {  
-        f.resize(1<<n);
-        a = 0;
-        f[0] = true;
+    vector<int> grayCode(int n) {
+        vector<int> ans;
         ans.push_back(0);
-        dfs(1<<n, n);
+        for(int i = 0; i < n; i++) {
+            for(int j = (int)ans.size()-1; j >= 0; j--)
+                ans.push_back(ans[j] | (1<<i));
+        }
         return ans;
     }
-    void dfs(int k, int n) {
-        if(k  <= 1)
-            return;
-        for(int i = 0; i < n; i++) {
-            a ^= (1 << i);
-            if(!f[a]) {
-                ans.push_back(a);
-                f[a] = true;
-                dfs(k-1, n);
-                return;
-            }
-            a ^= (1 << i);
-        }
-    }
-    
 };
-*/
