@@ -16,3 +16,24 @@ public:
     }
     
 };
+
+
+//review
+//version2
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        TreeNode* p = root;
+        while(p) {
+            TreeNode* l = p->left;
+            if(l) {
+                TreeNode* r = l;
+                while(r->right) r = r->right;
+                r->right = p->right;
+                p->right = l;
+                p->left = NULL;
+            }
+            p = p->right;
+        }
+    }
+};
