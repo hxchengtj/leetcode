@@ -28,3 +28,30 @@ public:
         return NULL;
     }
 };
+
+
+//redo
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if(head == NULL) return NULL;
+        ListNode *p = head, *q = head->next;
+        while(q && p != q) {
+            p = p->next;
+            q = q->next;
+            if(q) q = q->next;
+        }
+        if(q == NULL) return NULL;
+        
+        ListNode *t = p;
+        ListNode *head2 = t->next;
+        ListNode *h1 = head, *h2 = head2;
+        while(h1 != h2) {
+            if(h1 == t) h1 = head2;
+            else h1 = h1->next;
+            if(h2 == t) h2 = head;
+            else h2 = h2->next;
+        }
+        return h1;
+    }
+};
