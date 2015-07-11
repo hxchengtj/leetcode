@@ -37,3 +37,25 @@ public:
         return ans;
     }
 };
+
+//review
+//version2
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int ans = 0;
+        int i = 0, j = (int)height.size()-1;
+        int lm = 0, rm = 0;
+        while(i < j) {
+            if(height[i] <= height[j]) {
+                lm = max(lm, height[i]);
+                ans += lm-height[i++];
+            }
+            else {
+                rm = max(rm, height[j]);
+                ans += rm-height[j--];
+            }
+        }
+        return ans;
+    }
+};
