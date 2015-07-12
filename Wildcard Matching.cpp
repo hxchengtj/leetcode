@@ -46,3 +46,37 @@ public:
         return true;
     }
 };
+
+
+
+//version2
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int ns = s.size(), np = p.size();
+        if(np == 0) {
+            if(ns == 0) return true;
+            else return false;
+        }
+        int bs = 0, bp = 0;
+        auto equalmatch = [](const char &a, const char &b){
+            return a == b || b == '?';
+        };
+        for(int i = 0; i <= np; i++) {
+            if(i == np || p[i] == '*') {
+                while(bp < i && p[bp] == '*') bp++;
+                if(bp < i) {
+                    string::iterator it;
+                    if(i == np) 
+                        it = search(s.begin() + max(bs, ns-i+bp), s.end(), p.begin()+bp, p.begin()+i, equalmatch);
+                    else
+                        it = search(s.begin()+bs, s.end(), p.begin()+bp, p.begin()+i, equalmatch);
+                    if(it == s.end() || bp == 0 && it != s.begin()) return false;
+                    bs = distance(s.begin(), it)+i-bp;
+                }
+                bp = i+1;
+            }
+        }
+        return true;
+    }
+};
