@@ -34,3 +34,23 @@ public:
         return ans;
     }
 };
+
+
+//version2
+// -123 % 10 = -3 , -123 /10 = -12
+class Solution {
+public:
+    int reverse(int x) {
+        bool isNeg = (x < 0);
+        x = x > 0? -x:x;
+        int ans = 0;
+        while(x) {
+            int p = x%10;
+            if(ans < (INT_MIN-p)/10) return 0;
+            ans = ans*10 +p;
+            x = x/10;
+        }
+        if(ans == INT_MIN && !isNeg) return 0;
+        return isNeg? ans:-ans;
+    }
+};
