@@ -39,3 +39,27 @@ public:
         return ret;
     }
 };
+
+
+//version2
+
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if(dividend == INT_MIN && divisor == -1 || divisor == 0) return INT_MAX;
+        
+        bool isNeg = (dividend < 0) ^ (divisor < 0);
+        dividend = dividend > 0? -dividend:dividend;
+        divisor = divisor > 0 ? -divisor:divisor;
+        int shift = 0, ans = 0;
+        while(shift < 32 && (divisor << shift) < 0 && dividend <= (divisor << shift)) shift++;
+        while(--shift >= 0) {
+            if(dividend <= (divisor << shift)) {
+                dividend -= (divisor << shift);
+                ans |= (1 << shift);
+            }
+        }
+        
+        return isNeg? -ans:ans;
+    }
+};
