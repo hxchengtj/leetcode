@@ -59,8 +59,9 @@ public:
             else return false;
         }
         int bs = 0, bp = 0;
+        //写成具有自反性质的性质，这样在KMP算法中不会存在问题ß
         auto equalmatch = [](const char &a, const char &b){
-            return a == b || b == '?';
+            return a == b || a == '?' || b == '?';
         };
         for(int i = 0; i <= np; i++) {
             if(i == np || p[i] == '*') {
