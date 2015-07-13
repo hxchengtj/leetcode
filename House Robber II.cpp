@@ -20,3 +20,25 @@ public:
         return max(f[nums.size()-1][0], f[nums.size()-1][1]);
     }
 };
+
+
+//version2
+class Solution {
+public:
+    int __rob(vector<int>& nums, int l, int r) {
+        if(r-l <= 0) return 0;
+        else if(r-l == 1) return nums[l];
+        int f[2];
+        f[l%2] = nums[l];
+        f[(l+1)%2] = max(nums[l], nums[l+1]);
+        for(int i = l+2; i < r; i++)
+            f[i%2] = max(f[i%2]+nums[i], f[(i+1)%2]);
+        return f[(r-1)%2];
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 0) return 0;
+        else if(n == 1) return nums[0];
+        return max(__rob(nums, 0, n-1), __rob(nums, 1, n));
+    }
+};
