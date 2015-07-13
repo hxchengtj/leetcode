@@ -40,3 +40,34 @@ public:
          return true;
     }
 };
+
+
+//version2
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<int> graph[numCourses];
+        int f[numCourses];
+        memset(f, 0, sizeof(f));
+        for(auto &t:prerequisites) {
+            graph[t.second].push_back(t.first);
+            f[t.first]++;
+        }
+        
+        stack<int> stk;
+        for(int i = 0; i < numCourses; i++)
+            if(f[i] == 0) stk.push(i);
+        int n = 0;
+        while(!stk.empty()) {
+            int i = stk.top();
+            stk.pop();
+            n++;
+            for(auto &a:graph[i]) {
+                f[a]--;
+                if(f[a] == 0)
+                    stk.push(a);
+            }
+        }
+        return n == numCourses;
+    }
+};
