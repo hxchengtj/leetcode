@@ -47,3 +47,38 @@ public:
          return ret;        
     }
 };
+
+
+
+//version2
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<int> graph[numCourses];
+        int f[numCourses];
+        memset(f, 0, sizeof(f));
+        for(auto &t:prerequisites) {
+            graph[t.second].push_back(t.first);
+            f[t.first]++;
+        }
+        
+        vector<int> ans;
+        queue<int> q;
+        for(int i = 0; i < numCourses; i++)
+            if(f[i] == 0) q.push(i);
+        
+        int n = 0;
+        while(!q.empty()) {
+            int a = q.front();
+            q.pop();
+            ans.push_back(a);
+            n++;
+            for(auto &t:graph[a]) {
+                f[t]--;
+                if(f[t] == 0) q.push(t);
+            }
+        }
+        if(n != numCourses) ans.clear();
+        return ans;
+    }
+};
