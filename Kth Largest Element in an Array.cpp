@@ -41,3 +41,27 @@ public:
     }
     
 };
+
+
+//version2
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int n = nums.size();
+        if(k > n || n == 0) return INT_MIN;
+        int l = 0, r = n;
+        while(true) {
+            int m = l;
+            for(int i = l+1; i < r; i++) {
+                if(nums[i] > nums[m]) {
+                    swap(nums[i], nums[m]);
+                    swap(nums[m+1], nums[i]);
+                    m++;
+                }
+            }
+            if(m == k-1) return nums[m];
+            else if(m < k-1) l = m+1;
+            else r = m;
+        }
+    }
+};
