@@ -41,3 +41,42 @@ public:
         return stk.empty();
     }
 };
+
+
+//version2
+class Queue {
+public:
+    stack<int> pushstk;
+    stack<int> popstk;
+    // Push element x to the back of queue.
+    void push(int x) {
+        pushstk.push(x);
+    }
+
+    // Removes the element from in front of queue.
+    void pop(void) {
+        if(popstk.empty()) {
+            while(!pushstk.empty()) {
+                popstk.push(pushstk.top());
+                pushstk.pop();
+            }
+        }
+        popstk.pop();
+    }
+
+    // Get the front element.
+    int peek(void) {
+        if(popstk.empty()) {
+            while(!pushstk.empty()) {
+                popstk.push(pushstk.top());
+                pushstk.pop();
+            }
+        }
+        return popstk.top();
+    }
+
+    // Return whether the queue is empty.
+    bool empty(void) {
+        return pushstk.empty() && popstk.empty();
+    }
+};
