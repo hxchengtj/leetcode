@@ -41,7 +41,7 @@ public:
            if(a.x != b.x) return a.x < b.x;
            else return a.y < b.y;
         });
-        
+
         for(int i = 0; i < points.size(); i++) {
             unordered_map<double, int> m;
             int j = i+1;
@@ -61,3 +61,25 @@ public:
         return ans;
     }
 };
+
+//redo2
+int maxpoint(vector<Point>& points) {
+  int ans = 0;
+  int n = points.size();
+  for(int i = 0; i < n; i++) {
+    unordered_map<double, int> m;
+    int k = 1;
+    for(int j = i+1; j < n; j++) {
+      double detax = (double) points[j].x - points[i].x;
+      double detay = (double) points[j].y - points[i].y;
+      if(detax == 0 && detay == 0) k++;
+      else if(detay == 0) m[INT_MAX+1.0-INT_MIN]++;
+      else m[detax/detay]++;
+    }
+    ans = max(ans, k);
+    for(auto a:m)
+        ans = max(ans, a.second+k);
+  }
+  return ans;
+}
+
