@@ -74,3 +74,36 @@ public:
     }
 };
 
+//version2
+//redo
+bool __wordbreak(string &s, unordered_set<string> & wordDict, int l, vector<bool> &f, string &a, vector<string> &ans) {
+  if(l == s.size()) {
+    ans.push_back(a);
+    return true;
+  }
+
+  if(!f[l]) return false;
+  bool flag = false;
+  int as = a.size();
+  for(int i = l+1; i <= s.size(); i++) {
+    string t = s.substr(l, i-l);
+    if(wordDict.find(t) != wordDict.end()) {
+      if(a) a.append(" "+t);
+      else a.append(t);
+      flag |= __wordbreak(s, wordDict, i, f, a, ans);
+      a.resize(as);
+    }
+  }
+  f[l] = flag;
+  return flag;
+}
+vector<string> wordBreak(string s, unordered_set<string>& wordDict) {
+  vector<string> ans;
+  int n = s.size();
+  if(n == 0) return ans;
+  vector<bool> f(n, true);
+  string a;
+  __wordbreak(s, wordDict, 0, f, a, ans);
+  return ans;
+}
+
