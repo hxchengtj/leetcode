@@ -11,7 +11,7 @@ public:
         v.resize(m);
         for(int i = 0; i < m; i++)
             v[i].resize(n);
-        for(int i = 0; i < m; i++) 
+        for(int i = 0; i < m; i++)
             for(int j = 0; j < n; j++) {
                 if(grid[i][j] == '1' && v[i][j] == false) {
                     dfs(grid, i, j, m, n);
@@ -30,3 +30,28 @@ public:
         dfs(grid, x, y+1, m, n);
     }
 };
+
+//redo
+void dfs(vector<vector<char>> & grid, int i, int j, vector<vector<bool>> & f) {
+  int m = grid.size(), n = grid[0].size();
+  if(i < 0 || i >= m || j < 0 || j >= n || !f[i][j] || grid[i][j] == '0')
+    return;
+  f[i][j] = false;
+  dfs(grid, i-1, j, f);
+  dfs(grid, i+1, j, f);
+  dfs(grid, i, j-1, f);
+  dfs(grid, i, j+1, f);
+}
+int numIslands(vector<vector<char>>& grid) {
+  if(grid.size() == 0 || grid[0].size() == 0) return 0;
+  int m = grid.size(), n = grid[0].size(), ans = 0;
+  vector<vector<bool>> f(m, vector<bool>(n, true));
+  for(int i = 0; i < m; i++)
+    for(int j = 0; j < n; j++)
+      if(f[i][j] && grid[i][j] == '1') {
+        dfs(grid, i, j, f);
+        ans++;
+      }
+  return ans;
+}
+
