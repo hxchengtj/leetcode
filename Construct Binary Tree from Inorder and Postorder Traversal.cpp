@@ -47,3 +47,22 @@ public:
         return __buildTree(inorder, postorder, m, 0, 0, n);
     }
 };
+
+//version2
+//redo
+TreeNode* __buildTree(vector<int>& inorder, vector<int>& postorder, unordered_map<int, int>& m, int bi, int bp, int n) {
+  if(n <= 0) return NULL;
+  int val = postorder[bp+n-1];
+  TreeNode* t = new TreeNode(val);
+  int k = m[val];
+  t->left = __buildTree(inorder, postorder, m, bi, bp, k-bi);
+  t->right = __buildTree(inorder, postorder, m, k+1, bp+k-bi, n-k+bi-1);
+  return t;
+}
+TreeNode* buildTree(vector<int> & inorder, vector<int> & postorder) {
+  int n = inorder.size();
+  unordered_map<int, int> m;
+  for(int i = 0; i < n; i++) m[inorder[i]] = i;
+    return __buildTree(inorder, postorder, m, 0, 0, n);
+}
+
