@@ -11,7 +11,7 @@ public:
                 switch(s[i]) {
                     case ')': if(a.top() != '(') return false; a.pop(); break;
                     case '}': if(a.top() != '{') return false; a.pop(); break;
-                    case ']': if(a.top() != '[') return false; a.pop(); 
+                    case ']': if(a.top() != '[') return false; a.pop();
                 }
             }
         }
@@ -20,3 +20,25 @@ public:
         return false;
     }
 };
+
+//redo
+bool isValid(string s) {
+  stack<char> stk;
+  for(char c:s) {
+    switch(c) {
+      case '(':
+      case '[':
+      case '{': stk.push(c); break;
+      case ')': if(stk.empty() || stk.top() != '(') return false;
+                  stk.pop(); break;
+      case ']': if(stk.empty() || stk.top() != '[') return false;
+                  stk.pop(); break;
+      case '}': if(stk.empty() || stk.top() != '{') return false;
+                  stk.pop(); break;
+    }
+  }
+  if(!stk.empty()) return false;
+  return true;
+}
+
+
