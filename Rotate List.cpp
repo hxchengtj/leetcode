@@ -25,6 +25,26 @@ public:
             head = l->next;
             l->next = NULL;
         }
-        return head;        
+        return head;
     }
 };
+
+//redo
+ListNode* rotateRight(ListNode* head, int k) {
+  if(k < 0 || head == NULL) return NULL;
+  int n = 1;
+  ListNode* tail = head;
+  while(tail->next) {
+    tail = tail->next;
+    n++;
+  }
+  k %= n;
+  if(k == 0) return head;
+  ListNode* p = head;
+  for(int i = 0; i < n-k-1; i++) p = p->next;
+  ListNode *newhead = p->next;
+  p->next = NULL;
+  tail->next = head;
+  return newhead;
+}
+
