@@ -13,9 +13,9 @@ public:
         g[3] = 1;
         while(true) {
             switch(k) {
-                case 0:  
+                case 0:
                 case 2: tmp = i+j; break;
-                case 1: 
+                case 1:
                 case 3: tmp = i-j; break;
             }
             if(tmp != g[k]) {
@@ -30,8 +30,25 @@ public:
                 k = (k+1)%4;
                 flag = true;
             }
-            else 
+            else
                 break;
         }
         return ans;
     }
+
+//version2
+vector<int> spiral(vector<vector<int>>& matrix) {
+  vector<int> ans;
+  if(matrix.size() == 0 || matrix[0].size() == 0) return ans;
+  int m = matrix.size(), n = matrix[0].size();
+  for(int k = 0; k <= min((m-1)/2, (n-1)/2); k++) {
+    int i;
+    for(i = k; i <= n-1-k; i++) ans.push_back(matrix[k][i]);
+    for(i = k+1; i <= m-1-k; i++) ans.push_back(matrix[i][n-1-k]);
+    if(k == n-1-k || k == m-1-k) break;
+    for(i = n-2-k ; i >= k; i--) ans.push_back(matrix[m-1-k][i]);
+    for(i = m-2-k ; i > k; i--) ans.push_back(matrix[i][k]);
+  }
+  return ans;
+}
+
