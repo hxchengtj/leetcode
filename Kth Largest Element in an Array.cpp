@@ -24,7 +24,7 @@ public:
         }
         quicksort(v, l, m);
         quicksort(v, m+1, r);
-        
+
     }
     int findKthLargest(vector<int>& nums, int k) {
         vector<int> v(nums.begin(), nums.begin()+k);
@@ -39,7 +39,7 @@ public:
         }
         return v[0];
     }
-    
+
 };
 
 
@@ -65,3 +65,25 @@ public:
         }
     }
 };
+
+
+//version2
+//redo
+int findkth(vector<int> &nums, int k) {
+  int n = nums.size();
+  if(n < k || k <= 0) return 0;
+  int l = 0, r = n;
+  while(true) {
+    int m = l;
+    for(int i = l+1; i < r; i++) {
+      if(nums[i] > nums[m]) {
+        swap(nums[i], nums[m]);
+        swap(nums[i], nums[++m]);
+      }
+    }
+    if(m == k-1) return nums[m];
+    else if(m > k-1) r = m;
+    else l = m+1;
+  }
+}
+
