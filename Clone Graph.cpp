@@ -23,3 +23,19 @@ public:
         return clone(node, m);
     }
 };
+
+//redo2
+UndirectedGraphNode* dfs(UndirectedGraphNode *node, unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> & m) {
+  if(node == NULL) return NULL;
+  if(m.find(node) != m.end()) return m[node];
+  UndirectedGraphNode* t = new UndirectedGraphNode(node->label);
+  m[node] = t;
+  for(auto n:node->neighbors)
+      t->neighbors.push_back(dfs(n, m));
+  return t;
+}
+UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+  unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> m;
+  return dfs(node, m);
+}
+
