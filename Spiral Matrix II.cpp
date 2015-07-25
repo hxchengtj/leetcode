@@ -13,7 +13,7 @@ public:
         bool flag = false;
         while(t <= n*n) {
             switch(k) {
-                case 0: 
+                case 0:
                 case 2: x = i+j; break;
                 case 1:
                 case 3: x = i-j; break;
@@ -39,3 +39,19 @@ public:
         return ans;
     }
 };
+
+//redo
+vector<vector<int>> generateMatrix(int n) {
+  vector<vector<int>> ans(n, vector<int>(n, 0));
+  int a = 1;
+  for(int k = 0; k <= (n-1)/2; k++) {
+    int i;
+    for(i = k; i <= n-1-k; i++) ans[k][i] = a++;
+    for(i = k+1; i <= n-1-k; i++) ans[i][n-1-k] = a++;
+    if(k == n-1-k) break;
+    for(i = n-k-2; i >= k; i--) ans[n-1-k][i] = a++;
+    for(i = n-k-2; i >= k+1; i--) ans[i][k] = a++;
+  }
+  return ans;
+}
+
