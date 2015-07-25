@@ -45,7 +45,7 @@ public:
                     }
                     sc.push(s[i]);
                 }
-            }   
+            }
         }
         while(!sc.empty()) {
             char c = sc.top();
@@ -55,3 +55,43 @@ public:
         return si.top();
     }
 };
+
+//redo
+int calculate(string s) {
+  stack<int> val;
+  stack<char> cal;
+  auto cmp = [](const char & a, const char & b) {
+    if((a == '+' || a == '-') && (b == '*' || b == '/')) return true;
+    return false;
+  };
+  int n = s.size(), i = 0;
+  while(i <= n) {
+    if(i == n || s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/') {
+      if(i == n || (!cal.empty() && !cmp(cal.top(), s[i]))) {
+        char c = i == n ? '+':s[i];
+        while(!cal.empty() && !cmp(cal.top(), c)) {
+          int b = val.top();
+          val.pop();
+          switch(cal.top()) {
+            case '+': val.top() += b; break;
+            case '-': val.top() -= b; break;
+            case '*': val.top() *= b; break;
+            case '/': val.top() /= b;
+          }
+          cal.pop();
+        }
+      }
+      if(i != n) cal.push(s[i]);
+      i++;
+    }
+    else if(isdigit(s[i])) {
+      int j = i;
+      while(i < n && isdigit(s[i])) i++;
+      int a = stoi(s.substr(j, i-j));
+      val.push(a);
+    }
+    else i++;
+  }
+  return val.top();
+}
+
