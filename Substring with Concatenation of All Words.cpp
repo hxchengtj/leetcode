@@ -3,13 +3,13 @@
 class Solution {
 public:
     vector<int> findSubstring(string S, vector<string> &L) {
-        unordered_map<string, vector<int>> m; 
+        unordered_map<string, vector<int>> m;
         vector<int> ans;
         int n = L[0].length(), i, j, k, a = L.size(), b = S.size(), x = 0;
         for(i = 0; i < n; i++) {
-            for(string &s:L) 
+            for(string &s:L)
                 m[s].clear();
-            for(string &s:L) 
+            for(string &s:L)
                 m[s].push_back(-1);
             j = i;
             k = i;
@@ -51,3 +51,35 @@ public:
         return ans;
     }
 };
+
+vector<int> findsubstring(string s, vector<string>& words) {
+  vector<int> ans;
+  if(s.size() == 0 || words.size() == 0) return ans;
+  unordered_map<string, int> dict;
+  for(auto & w:words)
+    dict[w]++;
+  int m = s.size(), n = words.size(), w = words[0].size();
+  for(int i = 0; i < w; i++) {
+    int l = i, r = i;
+    unordered_map<string, int> mapped;
+    while(l+n*w <= m) {
+      string t = s.substr(r, w);
+      if(dict.find(t) == dict.end()) {
+        mapped.clear();
+        l = r+w;
+        r = l;
+      }
+      else if(mapped[t] == dict[t]){
+        mapped[s.substr(l, w)]--;
+        l += w;
+      }
+      else {
+        mapped[t]++;
+        r += w;
+        if(r-l == n*w) ans.push_back(l);
+      }
+    }
+  }
+  return ans;
+}
+
