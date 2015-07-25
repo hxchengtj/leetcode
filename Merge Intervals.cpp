@@ -60,3 +60,18 @@ public:
         return v;
     }
 };
+
+//redo
+vector<Interval> merge(vector<Interval> & intervals) {
+  vector<Interval> ans;
+  if(intervals.size() == 0) return ans;
+  sort(intervals.begin(), intervals.end(), [](const Interval& a, const Interval& b){
+      return a.start < b.start;
+      });
+  ans.push_back(intervals.front());
+  for(int i = 1; i < intervals.size(); i++) {
+    if(ans.back().end >= intervals[i].start) ans.back().end = max(ans.back().end, intervals[i].end);
+    else ans.push_back(intervals[i]);
+  }
+  return ans;
+}
