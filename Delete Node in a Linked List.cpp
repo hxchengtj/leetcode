@@ -7,3 +7,13 @@ public:
         }
     }
 };
+//redo
+void delete(ListNode* node) {
+  if(node->next) {
+    ListNode* t = node->next;
+    node->val = t->val;
+    node->next = t->next;
+    delete t;
+  }
+}
+
