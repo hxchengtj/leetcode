@@ -41,3 +41,20 @@ public:
         return true;
     }
 };
+
+//redo2
+bool isHappy(int n) {
+  if(n <= 0) return false;
+  unordered_set<int> s;
+  while(n != 1 && s.find(n) == s.end()) {
+    s.insert(n);
+    int t = 0;
+    while(n) {
+      t += (n%10)*(n%10);
+      n = n/10;
+    }
+    n = t;
+  }
+  return n == 1;
+}
+
