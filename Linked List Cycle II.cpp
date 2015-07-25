@@ -42,7 +42,7 @@ public:
             if(q) q = q->next;
         }
         if(q == NULL) return NULL;
-        
+
         ListNode *t = p;
         ListNode *head2 = t->next;
         ListNode *h1 = head, *h2 = head2;
@@ -55,3 +55,27 @@ public:
         return h1;
     }
 };
+
+//redo2
+ListNode *detectCycle(ListNode *head) {
+  ListNode HEAD(0);
+  HEAD.next = head;
+  ListNode* p = &HEAD, *q = HEAD.next;
+  while(q && p != q) {
+    p = p->next;
+    q = q->next;
+    if(q) q = q->next;
+  }
+  if(!q) return NULL;
+  ListNode* tail = q, *head1 = tail->next;
+  p = head;
+  q = head1;
+  while(p && q && p != q) {
+    if(p == tail) p = head1;
+    else p = p->next;
+    if(q == tail) q = head;
+    else q = q->next;
+  }
+  return p;
+}
+
