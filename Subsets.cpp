@@ -22,3 +22,23 @@ public:
         dfs(a+1, S);
     }
 };
+
+//redo
+void dfs(vector<int>& nums, int l, vector<vector<int>>& ans, vector<int>& v) {
+  if(l == nums.size()) {
+    ans.push_back(v);
+    return;
+  }
+  v.push_back(nums[l]);
+  dfs(nums, l+1, ans, v);
+  v.pop_back();
+  dfs(nums, l+1, ans, v);
+}
+vector<vector<int>> subsets(vector<int>& nums) {
+  sort(nums.begin(), nums.end());
+  vector<vector<int>> ans;
+  vector<int> v;
+  dfs(nums, 0, ans, v);
+  return ans;
+}
+
