@@ -24,7 +24,7 @@ public:
             z += b[j]-'0';
             c = (z%2)+'0';
             s = c+s;
-            z = z/2;  
+            z = z/2;
             j--;
         }
         if(z)
@@ -52,3 +52,19 @@ public:
         return s;
     }
 };
+
+
+//redo2
+string addBinary(string a, string b) {
+  int i = a.size()-1, j = b.size()-1, k = 0;
+  string ans;
+  while(i >= 0 || j >= 0 || k > 0) {
+    if(i >= 0 && a[i--] == '1') k += 1;
+    if(j >= 0 && b[j--] == '1') k += 1;
+    ans.append(to_string(k%2));
+    k = k/2;
+  }
+  reverse(ans.begin(), ans.end());
+  return ans;
+}
+
