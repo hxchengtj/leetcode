@@ -19,7 +19,7 @@ public:
                     r = m-1;
                 else if(A[r] >= target)
                     l = m+1;
-                else 
+                else
                     r = m-1;
             }
         }
@@ -27,7 +27,6 @@ public:
     }
 };
 
-//redo
 //version2
 class Solution {
 public:
@@ -53,3 +52,30 @@ public:
         return max(__search(nums, target, 0, l), __search(nums, target, l, nums.size()));
     }
 };
+
+
+//version2
+//redo
+int __search(vector<int>& nums, int l, int r, int target) {
+  while(l < r) {
+    int m = l + (r-l)/2;
+    if(nums[m] > target) r = m;
+    else if(nums[m] < target) l = m+1;
+    else return m;
+  }
+  return -1;
+}
+int search(vector<int>& nums, int target) {
+  int n = nums.size();
+  int l = 0, r = n, m = 0;
+  while(l < r) {
+    m = l + (r-l)/2;
+    if(nums[m] < nums[l]) r = m;
+    else {
+      if(m == n-1 || nums[m] > nums[m+1]) break;
+      else l = m+1;
+    }
+  }
+  return max(__search(nums, 0, m+1, target), __search(nums, m+1, n, target));
+}
+
