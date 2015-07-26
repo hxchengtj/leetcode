@@ -47,7 +47,7 @@ class Solution {
 public:
     int divide(int dividend, int divisor) {
         if(dividend == INT_MIN && divisor == -1 || divisor == 0) return INT_MAX;
-        
+
         bool isNeg = (dividend < 0) ^ (divisor < 0);
         dividend = dividend > 0? -dividend:dividend;
         divisor = divisor > 0 ? -divisor:divisor;
@@ -59,7 +59,27 @@ public:
                 ans |= (1 << shift);
             }
         }
-        
+
         return isNeg? -ans:ans;
     }
 };
+
+//version2
+//redo
+int divide(int dividend, int divisor) {
+  if(divisor == 0 || (dividend == INT_MIN && divisor == -1)) return INT_MAX;
+
+  bool isNeg = (dividend < 0) ^ (divisor < 0);
+  dividend = dividend < 0 ? dividend:-dividend;
+  divisor = divisor < 0 ? divisor:-divisor;
+  int ans = 0, i = 0;
+  while(i <= 31 && ((divisor << i) < 0 && dividend <= (divisor << i))) i++;
+  while(--i >= 0) {
+    if(dividend <= (divisor << i)) {
+      dividend -= (divisor << i);
+      ans += (1 << i);
+    }
+  }
+  return isNeg? -ans : ans;
+}
+
