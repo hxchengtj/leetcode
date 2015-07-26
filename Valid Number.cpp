@@ -6,7 +6,7 @@ public:
         int i;
         bool l = false, r = false;
         i = 0;
-        while(s[i] == ' ') 
+        while(s[i] == ' ')
             i++;
         if(!s[i])
             return false;
@@ -45,3 +45,35 @@ public:
         return false;
     }
 };
+
+
+//redo
+bool isNumber(string s) {
+  int l = 0, r = s.size();
+  while(l < r && s[l] == ' ') l++;
+  while(r > l && s[r-1] == ' ') r--;
+  if(l < r && (s[l] == '+' || s[l] == '-')) l++;
+  bool hasD = false;
+  while(l < r && isdigit(s[l])) {
+    hasD = true;
+    l++;
+  }
+  if(l < r && s[l] == '.') {
+    l++;
+    while(l < r && isdigit(s[l])) {
+      hasD = true;
+      l++;
+    }
+  }
+  if(!hasD) return false;
+  if(l >= r) return true;
+  if(s[l++] != 'e') return false;
+  if(l < r && (s[l] == '+' || s[l] == '-')) l++;
+  hasD = false;
+  while(l < r && isdigit(s[l])) {
+    hasD = true;
+    l++;
+  }
+  return l == r && hasD;
+}
+
