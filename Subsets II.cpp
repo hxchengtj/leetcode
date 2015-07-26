@@ -30,3 +30,35 @@ public:
             b.pop_back();
     }
 };
+
+
+//redo
+vector<vector<int> > ans;
+vector<int> v;
+void dfs(vector<pair<int, int>>& numv, int l) {
+  if(l >= numv.size()) {
+    ans.push_back(v);
+    return;
+  }
+  for(int i = 0; i <= numv[l].second; i++) {
+    dfs(numv, l+1);
+    if(i < numv[l].second) v.push_back(numv[l].first);
+  }
+  v.resize(v.size()-numv[l].second);
+}
+vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+  ans.clear();
+  v.clear();
+  sort(nums.begin(), nums.end());
+  vector<pair<int, int> > numv;
+  int n = nums.size(), m = 1;
+  for(int i = 1; i <= nums.size(); i++) {
+    if(i == nums.size() || nums[i] != nums[i-1]) {
+      numv.push_back(make_pair(nums[i-1], m));
+      m = 1;
+    } else m++;
+  }
+  dfs(numv, 0);
+  return ans;
+}
+
