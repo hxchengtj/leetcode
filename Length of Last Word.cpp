@@ -9,3 +9,14 @@ public:
         return j;
     }
 };
+
+//redo
+int lengthOfLastWord(string s) {
+  int ans = 0, n = s.size();
+  for(int i = n-1; i >= 0; i--) {
+    if(s[i] == ' ' && ans != 0) break;
+    else if(s[i] != ' ') ans++;
+  }
+  return ans;
+}
+
