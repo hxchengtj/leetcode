@@ -17,3 +17,18 @@ public:
         return maxl;
     }
 };
+
+//redo
+int lengthOfLongestSubstring(string s) {
+  int n = s.size(), l = 0, r = 0, ans = 0;
+  unordered_set<char> sc;
+  while(r < n) {
+    if(sc.find(s[r]) != sc.end()) sc.erase(s[l++]);
+    else {
+      sc.insert(s[r++]);
+      ans = max(ans, r-l);
+    }
+  }
+  return ans;
+}
+
