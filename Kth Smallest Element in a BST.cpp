@@ -27,3 +27,22 @@ public:
         return -1;
     }
 };
+
+
+//redo
+int kthSmallestElement(TreeNode* root, int k) {
+  TreeNode* p = root;
+  stack<TreeNode*> stk;
+  while(p || !stk.empty()) {
+    while(p) {
+      stk.push(p);
+      p = p->left;
+    }
+    TreeNode* t = stk.top();
+    stk.pop();
+    if(--k == 0) return t->val;
+    p = t->right;
+  }
+  return 0;
+}
+
