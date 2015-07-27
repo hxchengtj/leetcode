@@ -16,3 +16,18 @@ public:
         return r;
     }
 };
+
+//redo
+int countPrime(int n) {
+  vector<bool> isP(n+1, true);
+  int ans = 0;
+  for(int i = 2; i < n; i++) {
+    if(isP[i]) {
+      ans++;
+      for(int j = i*2; j < n; j += i)
+        isP[j] = false;
+    }
+  }
+  return ans;
+}
+
