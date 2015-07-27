@@ -53,3 +53,26 @@ public:
         return ans;
     }
 };
+
+
+//redo2
+vector<int> postorderTraversal(TreeNode* root) {
+  TreeNode* p = root, *pre = NULL;
+  stack<TreeNode*> stk;
+  vector<int> ans;
+  while(p || !stk.empty()) {
+    while(p) {
+      stk.push(p);
+      p = p->left;
+    }
+    TreeNode* t = stk.top();
+    if(t->right == NULL || pre == t->right) {
+      ans.push_back(t->val);
+      stk.pop();
+      pre = t;
+    }
+    else p = t->right;
+  }
+  return ans;
+}
+
