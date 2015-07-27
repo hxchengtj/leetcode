@@ -38,3 +38,17 @@ public:
         return sell1;
     }
 };
+
+//version2
+//redo
+int maxProfit(vector<int>& prices) {
+  int hold0 = INT_MIN, sell0 = 0, hold1 = INT_MIN, sell1 = 0;
+  for(auto p:prices) {
+    hold0 = max(hold0, -p);
+    sell0 = max(sell0, hold0+p);
+    hold1 = max(hold1, sell0-p);
+    sell1 = max(sell1, hold1+p);
+  }
+  return sell1;
+}
+
