@@ -22,14 +22,14 @@ public:
             p = p1;
             if(!l)
                 l = p;
-        }   
+        }
         if(a){
             p1 = new ListNode(a);
             if(p)
                 p->next = p1;
             p = p1;
             if(!l)
-                l = p; 
+                l = p;
         }
         return l;
     }
@@ -58,3 +58,27 @@ public:
         return HEAD.next;
     }
 };
+
+//version2
+//redo
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+  ListNode HEAD(0);
+  ListNode* p = &HEAD;
+  int r = 0;
+  while(l1 || l2 || r) {
+    if(l1) {
+      r += l1->val;
+      l1 = l1->next;
+    }
+    if(l2) {
+      r += l2->val;
+      l2 = l2->next;
+          }
+    ListNode* t = new ListNode(r%10);
+    p->next = t;
+    p = t;
+    r = r/10;
+  }
+  return HEAD.next;
+}
+
