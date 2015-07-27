@@ -57,7 +57,7 @@ public:
                 }
             }
             if(i == m) {
-                ans += nums2[j+k]; 
+                ans += nums2[j+k];
                 j += k+1;
             }
             else if(j == n) {
@@ -79,3 +79,37 @@ public:
         return (double)ans/t;
     }
 };
+
+
+//redo
+double findMedianSorted(vector<int>& nums1, vector<int>& nums2) {
+  int m = nums1.size(), n = nums2.size();
+  int t = (m+n)%2 == 0?2:1, k = (m+n-1)/2;
+  int l1 = 0, l2 = 0;
+  double ans = 0;
+  while(t-- > 0) {
+    while(k && l1 < m && l2 < n) {
+      int k1 = min(l1+(k-1)/2, m-1);
+      int k2 = min(l2+(k-1)/2, n-1);
+      if(nums1[k1] < nums2[k2]) {
+        k = k-(k1-l1+1);
+        l1 = k1+1;
+      } else {
+        k = k-(k2-l2+1);
+        l2 = k2+1;
+      }
+    }
+    if(l1 == m) {
+      ans += nums2[l2+k];
+      l2 = l2+k+1;
+    } else if(l2 == n) {
+      ans += nums1[l1+k];
+      l1 += k+1;
+    } else if(nums1[l1] <= nums2[l2]) {
+      ans += nums1[l1++];
+    } else ans += nums2[l2++];
+    k = 0;
+  }
+  return (m+n)%2 == 0? ans/2:ans;
+}
+
