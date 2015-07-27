@@ -28,3 +28,42 @@ public:
         }
     }
 };
+
+
+//redo
+vector<vector<string>> ans;
+vector<string> v;
+vector<vector<string>> partition(string s) {
+  ans.clear(); v.clear();
+  int n = s.size();
+  if(n == 0) return ans;
+  vector<vector<bool>> isP(n+1, vector<bool>(n+1, false));
+  vector<bool> f(n, true);
+  for(int i = 0; i <= n; i++)
+    for(int j = 0; j+i <= n; j++) {
+      if(i < 2) isP[j][i+j] = true;
+      else isP[j][i+j] = (s[j] == s[i+j-1]) && isP[j+1][i+j-1];
+    }
+  dfs(s, 0, isP, f);
+  return ans;
+}
+
+bool dfs(string& s, int l, vector<vector<bool>>& isP, vector<bool>& f) {
+  if(l == s.size()) {
+    ans.push_back(v);
+    return true;
+  }
+  if(!f[l]) return false;
+
+  bool flag = false;
+  for(int i = l+1; i <= s.size(); i++) {
+    if(isP[l][i]) {
+      v.push_back(s.substr(l, i-l));
+      flag |= dfs(s, i, isP, f);
+      v.pop_back();
+    }
+  }
+  f[l] = flag;
+  return flag;
+}
+
