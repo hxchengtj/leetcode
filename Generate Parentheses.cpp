@@ -43,7 +43,7 @@ public:
     vector<string> generateParenthesis(int n) {
         vector<string> v[n+1];
         v[0].push_back("");
-        for(int i = 1; i <= n; i++) 
+        for(int i = 1; i <= n; i++)
             for(int j = 0; j < i; j++) {
                 vector<string> &a = v[j];
                 vector<string> &b = v[i-j-1];
@@ -56,3 +56,31 @@ public:
         return v[n];
     }
 };
+
+
+//version3
+vector<string> ans;
+string s;
+vector<string> generateParentheses(int n) {
+  ans.clear();
+  s = "";
+  dfs(n, 0);
+  return ans;
+}
+void dfs(int n, int nr) {
+  if(n == 0) {
+    s.append(nr, ')');
+    ans.push_back(s);
+    s.resize(s.size()-nr);
+    return;
+  }
+
+  s.push_back('(');
+  dfs(n-1, nr+1);
+  if(nr > 0) {
+    s.back() = ')';
+    dfs(n, nr-1);
+  }
+  s.pop_back();
+}
+
