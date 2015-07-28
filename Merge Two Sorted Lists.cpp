@@ -47,7 +47,7 @@ public:
         ListNode HEAD(0);
         ListNode *p = &HEAD;
         while(l1 && l2) {
-            if(l1->val < l2->val) { 
+            if(l1->val < l2->val) {
                 p->next = l1;
                 l1 = l1->next;
             }
@@ -62,3 +62,27 @@ public:
         return HEAD.next;
     }
 };
+
+//version2
+//redo
+ListNode* mergeList(ListNode* l1, ListNode* l2) {
+  ListNode HEAD(0);
+  ListNode* p = &HEAD;
+  while(l1 && l2) {
+    if(l1->val <= l2->val) {
+      p->next = l1;
+      p = p->next;
+      l1 = l1->next;
+    }
+    else {
+      p->next = l2;
+      p = p->next;
+      l2 = l2->next;
+    }
+  }
+  p->next = NULL;
+  if(l1) p->next = l1;
+  if(l2) p->next = l2;
+  return HEAD.next;
+}
+
