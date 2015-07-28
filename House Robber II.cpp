@@ -42,3 +42,19 @@ public:
         return max(__rob(nums, 0, n-1), __rob(nums, 1, n));
     }
 };
+
+
+//redo
+int rob(vector<int>& nums) {
+  if(nums.size() == 0) return 0;
+  if(nums.size() == 1) return nums[0];
+  return max(__rob(nums, 0, nums.size()-1), __rob(nums, 1, nums.size()));
+}
+int __rob(vector<int>& nums, int l, int r) {
+  int f[nums.size()+1];
+  f[l] = 0; f[l+1] = nums[l];
+  for(int i = 2; i < r; i++)
+    f[i+1] = max(f[i], f[i-1]+nums[i]);
+  return f[r];
+}
+
