@@ -10,7 +10,7 @@ public:
                 j = i;
                 l = words[i].length();
             }
-            else if(l+words[i].length()+1 <= L) 
+            else if(l+words[i].length()+1 <= L)
                 l = l+words[i].length()+1;
             else {
                 s = words[j];
@@ -85,3 +85,43 @@ public:
         return ans;
     }
 };
+
+//redo2
+vector<string> fullJustify(vector<string>& words, int maxWidth) {
+  int n = words.size();
+  vector<string> ans;
+  if(n == 0) return ans;
+  int len = words[0].size(), l = 0;
+  for(int i = 1; i < n; i++) {
+    if(len+words[i].size()+1 <= maxWidth) len += words[i].size()+1;
+    else {
+      string line = words[l];
+      if(l == i-1) line.append(maxWidth-len, ' ');
+      else {
+        int avespace = (maxWidth-len)/(i-l-1)+1;
+        int extraspace = (maxWidth-len)%(i-l-1);
+        int j;
+        for(j = l+1; j < extraspace+l+1; j++) {
+          line.append(avespace+1, ' ');
+          line.append(words[j]);
+        }
+        for(; j < i; j++) {
+          line.append(avespace, ' ');
+          line.append(words[j]);
+        }
+      }
+      ans.push_back(line);
+      len = words[i].size();
+      l = i;
+    }
+  }
+  string line = words[l];
+  for(int i = l+1; i < n; i++) {
+    line.append(" ");
+    line.append(words[i]);
+  }
+  line.resize(maxWidth, ' ');
+  ans.push_back(line);
+  return ans;
+}
+
