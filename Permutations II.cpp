@@ -85,3 +85,40 @@ public:
         }
     }
 };
+
+//redo
+vector<vector<int>> ans;
+vector<int> v;
+vector<vector<int>> permuteUnique(vector<int>& nums) {
+  ans.clear(); v.clear();
+  if(nums.size() == 0) return ans;
+  sort(nums.begin(), nums.end());
+  vector<pair<int, int>> numsv;
+  int k = 1;
+  for(int i = 1; i <= nums.size(); i++) {
+    if(i == nums.size() || nums[i] != nums[i-1]) {
+      numsv.push_back(make_pair(nums[i-1], k));
+      k = 1;
+    } else k++;
+  }
+  dfs(numsv, nums.size());
+  return ans;
+}
+
+void dfs(vector<pair<int, int>>& numsv, int n) {
+  if(n == 0) {
+    ans.push_back(v);
+    return;
+  }
+  for(auto &p:numsv) {
+    if(p.second > 0) {
+      v.push_back(p.first);
+      p.second--;
+      dfs(numsv, n-1);
+      p.second++;
+      v.pop_back();
+    }
+  }
+}
+
+
