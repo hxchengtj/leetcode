@@ -39,7 +39,7 @@ public:
     int maximumGap(vector<int>& nums) {
         int n = nums.size();
         if(n < 2) return 0;
-        
+
         int minnum = *min_element(nums.begin(), nums.end());
         int maxnum = *max_element(nums.begin(), nums.end());
         int D = max((maxnum-minnum+n-2)/(n-1), 1);
@@ -51,10 +51,10 @@ public:
             mins[t] = min(num, mins[t]);
             maxs[t] = max(num, maxs[t]);
         }
-        
+
         int ans = 0;
         int l = 0;
-        for(int i = 0; i < n; i++) 
+        for(int i = 0; i < n; i++)
             if(maxs[i] != -1) {
                 ans = max(mins[i]-maxs[l], ans);
                 l = i;
@@ -62,3 +62,31 @@ public:
         return ans;
     }
 };
+
+//version2
+//redo
+int maximumGap(vector<int>& nums) {
+  if(nums.size() <= 1) return 0;
+  int n = nums.size();
+  int minnum = *min_element(nums.begin(), nums.end());
+  int maxnum = *max_element(nums.begin(), nums.end());
+  int T = max((maxnum-minnum+n-2)/(n-1), 1);
+  vector<int> mins(n, 0), maxs(n, -1);
+  for(auto a:nums) {
+    int b = (a-minnum)/T;
+    if(mins[b] > maxs[b]) mins[b] = maxs[b] = a;
+    else {
+      mins[b] = min(mins[b], a);
+      maxs[b] = max(maxs[b], a);
+    }
+  }
+  int ans = 0, maxe = minnum;
+  for(int i = 0; i < n; i++) {
+    if(mins[i] <= maxs[i]) {
+      ans = max(ans, mins[i]-maxe);
+      maxe = maxs[i];
+    }
+  }
+  return ans;
+}
+
