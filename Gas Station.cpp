@@ -18,3 +18,18 @@ public:
         return j;
     }
 };
+
+//redo
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+  int totsum = 0, cursum = 0, ans = -1;
+  int n = gas.size();
+  for(int i = 0; i < n; i++) {
+    int a = gas[i]-cost[i];
+    totsum += a;
+    if(cursum == 0 && a >= 0)
+      ans = i;
+    cursum = max(0, cursum+a);
+  }
+  return totsum < 0 ? -1:ans;
+}
+
