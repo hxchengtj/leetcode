@@ -26,3 +26,21 @@ public:
         return a.next;
     }
 };
+
+
+//redo
+ListNode* removeElements(ListNode* head, int val) {
+  ListNode HEAD(0);
+  HEAD.next = head;
+  ListNode* p = &HEAD;
+  while(p->next) {
+    if(p->next->val == val) {
+      ListNode* t = p->next;
+      p->next = t->next;
+      delete t;
+    }
+    else p = p->next;
+  }
+  return HEAD.next;
+}
+
