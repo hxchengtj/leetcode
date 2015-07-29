@@ -21,7 +21,7 @@ public:
             case 'C': a = a | 1;    break;
             case 'G': a = a | 2;    break;
             case 'T': a = a | 3;
-        }        
+        }
         return a;
     }
     string transstring(int a) {
@@ -85,3 +85,24 @@ public:
         return v;
     }
 };
+
+//redo2
+vector<string> findRepeatedDnaSequences(string s) {
+  char DNA[26];
+  DNA['A'-'A'] = 0;
+  DNA['C'-'A'] = 1;
+  DNA['G'-'A'] = 2;
+  DNA['T'-'A'] = 3;
+  int a = (1<<20)-1, val = 0;
+  unordered_map<int, int> m;
+  vector<string> ans;
+  for(int i = 0; i < s.size(); i++) {
+    val = ((val << 2) | DNA[s[i]-'A']) & a;
+    if(i >= 9) {
+      m[val]++;
+      if(m[val] == 2) ans.push_back(s.substr(i-9, 10));
+    }
+  }
+  return ans;
+}
+
