@@ -3,7 +3,7 @@ class Solution {
 public:
     void nextPermutation(vector<int> &num) {
         int i, t, j, k;
-        for(i = num.size()-2; i >= 0; i-- ) 
+        for(i = num.size()-2; i >= 0; i-- )
             if(num[i] < num[i+1]) {
                 for(j = i+1; j < num.size(); j++)
                     if(num[j] <= num[i])
@@ -38,3 +38,18 @@ public:
         reverse(nums.begin()+i+1, nums.end());
     }
 };
+
+//redo
+void nextPermutation(vector<int> & nums) {
+  int n = nums.size(), i;
+  for(i = n-2; i >= 0; i--) {
+    if(nums[i] < nums[i+1]) {
+      int l = n-1;
+      while(nums[l] <= nums[i]) l--;
+      swap(nums[i], nums[l]);
+      break;
+    }
+  }
+  reverse(nums.begin()+i+1, nums.end());
+}
+
