@@ -76,3 +76,32 @@ public:
         return 0;
     }
 };
+
+
+//redo2
+int ladderLength(string beginWord, string endWord, unordered_set<string>& wordDict) {
+  queue<pair<string, int>> q;
+  unordered_set<string> s;
+  s.insert(beginWord);
+  q.push(make_pair(beginWord, 1));
+  while(!q.empty()) {
+    auto t = q.front();
+    q.pop();
+    if(t.first == endWord) return t.second;
+    string  a = t.first;
+    for(int i = 0; i < a.size(); i++) {
+      char c = a[i];
+      for(char x = 'a'; x <= 'z'; x++) {
+        a[i] = x;
+        if(s.find(a) == s.end() && wordDict.find(a) != wordDict.end()) {
+          s.insert(a);
+          q.push(make_pair(a, t.second+1));
+        }
+      }
+      a[i] = c;
+    }
+  }
+  return 0;
+}
+
+
