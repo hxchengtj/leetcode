@@ -30,7 +30,6 @@ public:
     }
 };
 
-//redo
 //version2
 class Solution {
 public:
@@ -51,3 +50,21 @@ public:
         return false;
     }
 };
+
+//version2
+//redo
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+  if(matrix.size() == 0 || matrix[0].size() == 0) return false;
+
+  int m = matrix.size(), n = matrix[0].size();
+  int l = 0, r = m*n;
+
+  while(l < r) {
+    int mid = l + (r-l)/2, x = mid/n, y = mid%n;
+    if(matrix[x][y] == target) return true;
+    else if(matrix[x][y] < target) l = mid+1;
+    else r = mid;
+  }
+  return false;
+}
+
