@@ -15,7 +15,7 @@ public:
         int b = 0, e = 1;
         TreeNode** node = new TreeNode* [100000];
         int* depth = new int [100000];
-      
+
         node[b] = root;
         depth[b] = 1;
         while(b < e)
@@ -46,3 +46,11 @@ public:
         return max(maxDepth(root->left), maxDepth(root->right)) + 1;
     }
 };
+
+
+//redo
+int maxDepth(TreeNode* root) {
+  if(root == NULL) return 0;
+  return max(maxDepth(root->left), maxDepth(root->right))+1;
+}
+
