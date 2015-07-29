@@ -15,3 +15,20 @@ public:
         return ans;
     }
 };
+
+//redo
+int jump(vector<int>& nums) {
+  int n =  nums.size();
+  int j = 0, k = 0, ans = 0;
+  for(int i = 0; i < nums.size(); i++) {
+    if(i <= j) k = max(k, nums[i]+i);
+    else {
+      if(k < i) return -1;
+      ans++;
+      j = k;
+      k = numsa[i]+i;
+    }
+  }
+  return ans;
+}
+
