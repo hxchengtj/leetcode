@@ -3,7 +3,7 @@ public:
    vector<int> searchRange(int A[], int n, int target) {
        int l = 0, r = n-1, mid, ansl, ansr;
        vector<int> ans;
-       
+
        while (l <= r){
            mid = (l+r)/2;
            if (A[mid] >= target) r = mid-1;
@@ -20,7 +20,7 @@ public:
        if (ansl > ansr) ansl = ansr = -1;
        ans.push_back(ansl);
        ans.push_back(ansr);
-       
+
        return ans;
    }
 };
@@ -36,15 +36,38 @@ public:
             else r = m;
         }
         int tl = l;
-        
+
         r = nums.size();
         while(l < r) {
             int m = l + (r-l)/2;
             if(nums[m] <= target) l = m+1;
             else r = m;
         }
-        
+
         if(l == tl) return {-1, -1};
         else return {tl, l-1};
     }
 };
+
+//redo2
+vector<int> searchRange(vector<int>& nums, int target) {
+  int n = nums.size();
+  int l = 0, r = n;
+  while(l < r) {
+    int m = l + (r-l)/2;
+    if(nums[m] < target) l = m+1;
+    else r = m;
+  }
+
+  int tl = l;
+  r = n;
+  while(l < r) {
+    int m = l + (r-l)/2;
+    if(nums[m] <= target) l = m+1;
+    else r = m;
+  }
+  int tr = l-1;
+  if(tl <= tr) return {tl, tr};
+  else return {-1, -1};
+}
+
