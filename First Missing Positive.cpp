@@ -1,4 +1,4 @@
-// hard 
+// hard
 // review
 class Solution {
 public:
@@ -12,7 +12,7 @@ public:
                 A[i] = k;
                 i--;
             }
-        } 
+        }
         for(i = 0; i < n; i++)
             if(A[i] != i+1)
                 return i+1;
@@ -27,7 +27,7 @@ public:
         int n = nums.size();
         int i = 0;
         while(i < n){
-            if(nums[i] >= 1 && nums[i] <= n && nums[nums[i]-1] != nums[i]) 
+            if(nums[i] >= 1 && nums[i] <= n && nums[nums[i]-1] != nums[i])
                 swap(nums[nums[i]-1], nums[i]);
             else i++;
         }
@@ -36,3 +36,18 @@ public:
         return n+1;
     }
 };
+
+
+//redo2
+int firstMissingPositive(vector<int>& nums) {
+  int n = nums.size(), i = 0;
+  while(i < n) {
+    if(nums[i] <= n && nums[i] >= 1 && nums[nums[i]-1] != nums[i])
+      swap(nums[nums[i]-1], nums[i]);
+    else i++;
+  }
+  for(i = 0; i < n; i++)
+    if(nums[i] != i+1) return i+1;
+  return n+1;
+}
+
