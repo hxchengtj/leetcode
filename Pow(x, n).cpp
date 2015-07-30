@@ -35,3 +35,17 @@ public:
         return ans;
     }
 };
+
+
+//version2
+//redo
+double myPow(double x, int n) {
+  int m = n < 0 ? -(n+1):n;
+  double ans = 1, a = x;
+  for(int i = 0; i < 32; i++) {
+    if((m&(1<<i)) != 0) ans *= a;
+    a = a * a;
+  }
+  return n < 0? 1/x/ans:ans;
+}
+
