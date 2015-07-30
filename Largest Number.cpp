@@ -26,7 +26,23 @@ public:
         for(int i = 0; i < nums.size(); i++) {
             s.append(to_string(nums[i]));
         }
-        
+
         return s;
     }
 };
+
+
+//redo
+string largestNumber(vector<int>& nums) {
+  sort(nums.begin(), nums.end(), [](const int & a, const int &b){
+      string s1 = to_string(a)+to_string(b);
+      string s2 = to_string(b)+to_string(a);
+      return s1 > s2;
+      });
+  string ans;
+  for(auto a:nums)
+    ans.append(to_string(a));
+  if(ans.size() == 0 || ans[0] == '0') return "0";
+  return ans;
+}
+
