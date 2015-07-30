@@ -39,3 +39,30 @@ public:
         return v;
     }
 };
+
+
+//redo
+vector<int> rightSideView(TreeNode* root) {
+  vector<int> ans;
+  if(root == NULL) return ans;
+
+  TreeNode* last = NULL;
+  queue<TreeNode*> q;
+  q.push(root);
+  q.push(NULL);
+  while(!q.empty()) {
+    TreeNode* t = q.front();
+    q.pop();
+    if(t == NULL) {
+      ans.push_back(last->val);
+      if(!q.empty()) q.push(NULL);
+    }
+    else {
+      last = t;
+      if(t->left) q.push(t->left);
+      if(t->right) q.push(t->right);
+    }
+  }
+  return ans;
+}
+
