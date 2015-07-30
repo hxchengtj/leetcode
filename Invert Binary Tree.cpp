@@ -19,7 +19,6 @@ public:
     }
 };
 
-//redo
 //version2
 class Solution {
 public:
@@ -31,4 +30,15 @@ public:
         swap(root->left, root->right);
         return root;
     }
-};s
+};
+
+//redo
+TreeNode* invertTree(TreeNode* root) {
+  if(root == NULL) return NULL;
+  TreeNode *left = invertTree(root->left);
+  TreeNode * right = invertTree(root->right);
+  root->left = right;
+  root->right = left;
+  return root;
+}
+
