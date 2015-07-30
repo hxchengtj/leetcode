@@ -58,7 +58,7 @@ public:
 
 //version2
 //redo
-string longestPalindromic(string s) {
+string longestPalindrome(string s) {
   string str = "#";
   for(auto c:s) {
     str.push_back(c);
