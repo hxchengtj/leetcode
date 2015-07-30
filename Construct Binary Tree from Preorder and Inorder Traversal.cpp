@@ -4,7 +4,7 @@ public:
         return dfs(preorder, 0, preorder.size()-1, inorder, 0, inorder.size());
     }
     TreeNode *dfs(vector<int> &preorder, int b1, int e1, vector<int> &inorder, int b2, int e2) {
-        if(b1 > e1) 
+        if(b1 > e1)
             return NULL;
         TreeNode *t = new TreeNode(preorder[b1]);
         for(int i = b2; i <= e2; i++) {
@@ -35,3 +35,20 @@ public:
         return __buildTree(preorder, inorder, m, 0, 0, preorder.size());
     }
 };
+
+//redo2
+TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+  unordered_map<int, int> m;
+  for(int i = 0; i < inorder.size(); i++) m[inorder[i]] = i;
+  return __buildTree(preorder, inorder, m, 0, 0, inorder.size());
+}
+
+TreeNode* __buildTree(vector<int>& preorder, vector<int>& inorder, unordered_map<int, int>& m, int pb, int ib, int n) {
+  if(n <= 0) return NULL;
+  TreeNode* t = new TreeNode(preorder[pb]);
+  int k = m[preorder[pb]];
+  t->left = __buildTree(preorder, inorder, m, pb+1, ib, k-ib);
+  t->right = __buildTree(preorder, inorder, m, pb+k-ib+1, k+1, n-k+ib-1);
+  return t;
+}
+
