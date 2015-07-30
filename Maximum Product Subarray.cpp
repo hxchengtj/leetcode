@@ -30,3 +30,18 @@ public:
         return ans;
     }
 };
+
+
+//redo
+int maxProduct(vector<int>& nums) {
+  if(nums.size() == 0) return 0;
+  int maxp = nums[0], minp = nums[0], ans = nums[0];
+  for(int i = 1; i < nums.size(); i++) {
+    int tmp = min({maxp*nums[i], minp*nums[i], nums[i]});
+    maxp = max({maxp*nums[i], minp*nums[i], nums[i]});
+    minp = tmp;
+    ans = max(ans, maxp);
+  }
+  return ans;
+}
+
