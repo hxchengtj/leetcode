@@ -23,7 +23,7 @@ public:
          }
          while(n) {
             bool flag = true;
-            for(int i = 0; i < numCourses; i++) 
+            for(int i = 0; i < numCourses; i++)
                 if(f[i] == 0) {
                     ret.push_back(i);
                     flag = false;
@@ -41,10 +41,10 @@ public:
                 return ret;
             }
          }
-         for(int i = 0; i < numCourses; i++) 
+         for(int i = 0; i < numCourses; i++)
             if(f[i] == 0)
                 ret.push_back(i);
-         return ret;        
+         return ret;
     }
 };
 
@@ -61,12 +61,12 @@ public:
             graph[t.second].push_back(t.first);
             f[t.first]++;
         }
-        
+
         vector<int> ans;
         queue<int> q;
         for(int i = 0; i < numCourses; i++)
             if(f[i] == 0) q.push(i);
-        
+
         int n = 0;
         while(!q.empty()) {
             int a = q.front();
@@ -82,3 +82,34 @@ public:
         return ans;
     }
 };
+
+//version2
+//redo
+vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+  vector<int> ans;
+  if(numCourses <= 0) return ans;
+  unordered_map<int, vector<int>> graph;
+  int f[numCourses];
+  fill(f, f+numCourses, 0);
+
+  for(auto &p:prerequisites) {
+    graph[p.second].push_back(p.first);
+    f[p.first]++;
+  }
+
+  queue<int> q;
+  for(int i = 0; i < numCourses; i++)
+    if(f[i] == 0) q.push(i);
+  while(!q.empty()) {
+    int i = q.front();
+    ans.push_back(i);
+    q.pop();
+    for(auto a:graph[i]) {
+      f[a]--;
+      if(f[a] == 0) q.push(a);
+    }
+  }
+  if(ans.size() != numCourses) ans.clear();
+  return ans;
+}
+
