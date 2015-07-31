@@ -37,7 +37,7 @@ public:
                 next[i++] = ++j;
             else j = next[j];
         }
-        
+
         i = 0, j = 0;
         while(i < m) {
             if(j == -1) {
@@ -52,3 +52,28 @@ public:
         return -1;
     }
 };
+
+
+//version2
+//redo
+int strStr(string haystack, string needle) {
+  int m = haystack.size(), n = needle.size();
+  if(n==0) return n;
+  int next[n];
+  next[0] = -1;
+  int i = 1, j = -1;
+  while(i < n) {
+    if(j == -1 || needle[i-1] == needle[j]) next[i++] = ++j;
+    else j = next[j];
+  }
+  i = 0, j = 0;
+  while(i < m) {
+    if(j == -1 || haystack[i] == needle[j]) {
+      i++; j++;
+      if(j == n) return i-n;
+    }
+    else j = next[j];
+  }
+  return -1;
+}
+
