@@ -22,7 +22,25 @@ public:
                     f[A[i]] = k;
                 swap(A[k], A[i]);
                 i--;
-            }  
+            }
         }
     }
 };
+
+//version2
+//redo
+void sortColors(vector<int>& nums) {
+  int tail0 = 0, tail1 = 0;
+  for(int i = 0; i < nums.size(); i++) {
+    if(nums[i] == 0) {
+      nums[i] = nums[tail1];
+      nums[tail1++] = nums[tail0];
+      nums[tail0++] = 0;
+    }
+    else if(nums[i] == 1) {
+      nums[i] = nums[tail1];
+      nums[tail1++] = 1;
+    }
+  }
+}
+
