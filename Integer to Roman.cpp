@@ -23,3 +23,21 @@ public:
         return s;
     }
 };
+
+//version2
+string intToRoman(int num) {
+  string r[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+  int a[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+  string ans;
+  int i = 0;
+  while(num) {
+    if(num >= a[i]) {
+      num -= a[i];
+      ans.append(r[i]);
+    }
+    else i++;
+  }
+  return ans;
+}
+
+
