@@ -9,3 +9,13 @@ public:
         return a;
     }
 };
+
+
+//redo
+int rangeBitwiseAnd(int m, int n) {
+  int r = n-m+1;
+  int ans = m & n, a = -1, i;
+  for(i = 0; i < 31 && (1 << i) < r; i++);
+  return ans & (a << i);
+}
+
