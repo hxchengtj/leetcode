@@ -54,3 +54,20 @@ public:
         return isNeg? ans:-ans;
     }
 };
+
+//version2
+//redo
+int reverse(int x) {
+  int ans = 0;
+  bool isPos = x > 0;
+  if(x > 0) x = -x;
+  while(x) {
+    int a = x%10;
+    if(ans < (INT_MIN-a)/10) return 0;
+    ans = ans*10+a;
+    x = x/10;
+  }
+  if(x > 0 && ans == INT_MIN) return 0;
+  return isPos? -ans:ans;
+}
+
