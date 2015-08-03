@@ -24,7 +24,7 @@ public:
 //redo
 vector<string> ans;
 string s;
-string phone[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+const string phone[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 void dfs(string& digits, int l) {
   if(l == digits.size()) {
     ans.push_back(s);
