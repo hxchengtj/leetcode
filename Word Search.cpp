@@ -10,7 +10,7 @@ public:
             for(int j = 0; j < board[i].size(); j++)
                 if(word[0] == board[i][j]) {
                     b[i][j] = true;
-                    if(dfs(board, word, 1, i, j)) 
+                    if(dfs(board, word, 1, i, j))
                         return true;
                     b[i][j] = false;
                 }
@@ -32,6 +32,35 @@ public:
             }
         }
         return false;
-        
+
     }
 };
+
+//redo
+bool exist(vector<vector<char>>& board, string word) {
+  if(word.size() == 0) return true;
+  if(board.size() == 0 || board[0].size() == 0) return false;
+  int m = board.size(), n = board[0].size();
+  vector<vector<bool>> visited(m, vector<bool>(n, false));
+  for(int i = 0; i < m; i++)
+    for(int j = 0; j < n; j++)
+      if(dfs(board, word, visited, i, j, 0))
+        return true;
+  return false;
+}
+
+bool dfs(vector<vector<char>>& board, string& word, vector<vector<bool>>& visited, int x, int y, int a) {
+  if(a == word.size()) return true;
+  if(x < 0 || x >= board.size() || y < 0 || y >= board[0].size() || visited[x][y] || board[x][y] != word[a])
+    return false;
+  visited[x][y] = true;
+  int f[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+  for(int i = 0; i < 4; i++) {
+    int k = f[i][0]+x, l = f[i][1]+y;
+    if(dfs(board, word, visited, k, l, a+1))
+      return true;
+  }
+  visited[x][y] = false;
+  return false;
+}
+
