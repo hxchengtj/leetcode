@@ -20,3 +20,31 @@ public:
         }
     }
 };
+
+//redo
+vector<string> ans;
+string s;
+string phone[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+void dfs(string& digits, int l) {
+  if(l == digits.size()) {
+    ans.push_back(s);
+    return;
+  }
+  string a = phone[digits[l]-'0'];
+  if(a.size() == 0) dfs(digits, l+1);
+  else {
+    for(char c:a) {
+      s.push_back(c);
+      dfs(digits, l+1);
+      s.pop_back();
+    }
+  }
+}
+vector<string> letterCombinations(string digits) {
+  ans.clear();
+  s.clear();
+  if(digits.empty()) return ans;
+  dfs(digits, 0);
+  return ans;
+}
+
