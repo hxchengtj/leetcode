@@ -17,3 +17,26 @@ public:
         return ans;
     }
 };
+
+//redo
+pair<int, int> __maxPathSum(TreeNode* root) {
+  int ans = root->val, lsingle = root->val, rsingle = root->val;
+  if(root->left) {
+    pair<int, int> lp = __maxPathSum(root->left);
+    ans = max(lp.first, ans);
+    lsingle = max(lp.second+root->val, lsingle);
+  }
+  if(root->right) {
+    pair<int, int> rp = __maxPathSum(root->right);
+    ans = max(rp.first, ans);
+    rsingle = max(rp.second+root->val, rsingle);
+  }
+  return make_pair(max(ans, lsingle+rsingle-root->val), max(lsingle, rsingle));
+
+}
+int maxPathSum(TreeNode* root) {
+  if(root == NULL) return 0;
+  return __maxPathSum(root).first;
+}
+
+
