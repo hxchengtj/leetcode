@@ -24,7 +24,7 @@ public:
             else {
                 j = i-1;
                 value[i] = height[i];
-                while(j >= 0 && value[j] > height[i]) 
+                while(j >= 0 && value[j] > height[i])
                 {
                     tmpb = begin[j];
                     tmpv = value[j];
@@ -44,7 +44,7 @@ public:
             }
         }
         j = i-1;
-        while(j >= 0) 
+        while(j >= 0)
         {
             tmpb = begin[j];
             tmpv = value[j];
@@ -81,3 +81,28 @@ public:
         return ans;
     }
 };
+
+
+//version2
+//redo
+int largestRectangleArea(vector<int>& height) {
+  stack<int> stk;
+  int n = height.size();
+  if(n == 0) return 0;
+  int left[n];
+  for(int i = 0; i < n; i++) {
+    while(!stk.empty() && height[stk.top()] >= height[i]) stk.pop();
+    left[i] = stk.empty()? 0:stk.top()+1;
+    stk.push(i);
+  }
+  stk = stack<int>();
+  int ans = 0, right;
+  for(int i = n-1; i>= 0; i--) {
+    while(!stk.empty() && height[stk.top()] >= height[i]) stk.pop();
+    right = stk.empty()? n: stk.top();
+    ans = max(ans, (right-left[i])*height[i]);
+    stk.push(i);
+  }
+  return ans;
+}
+
