@@ -16,3 +16,23 @@ public:
         return ans;
     }
 };
+
+//redo
+int romanToInt(string s) {
+  int roman[26];
+  roman['I'-'A'] = 1;
+  roman['V'-'A'] = 5;
+  roman['X'-'A'] = 10;
+  roman['L'-'A'] = 50;
+  roman['C'-'A'] = 100;
+  roman['D'-'A'] = 500;
+  roman['M'-'A'] = 1000;
+  if(s.size() == 0) return 0;
+  int ans = roman[s[0]-'A'];
+  for(int i = 1;i < s.size(); i++) {
+    ans += roman[s[i]-'A'];
+    if(roman[s[i-1]-'A'] < roman[s[i]-'A']) ans -= 2*roman[s[i-1]-'A'];
+  }
+  return ans;
+}
+
