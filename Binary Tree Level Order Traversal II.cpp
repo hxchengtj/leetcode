@@ -63,7 +63,7 @@ public:
             }
             else {
                 v.push_back(t->val);
-                if(t->left) 
+                if(t->left)
                     q.push(t->left);
                 if(t->right)
                     q.push(t->right);
@@ -73,3 +73,30 @@ public:
         return ans;
     }
 };
+
+//redo2
+vector<vector<int>> levelOrderBottom(TreeNode* root) {
+  vector<vector<int>> ans;
+  vector<int> v;
+  if(root == NULL) return ans;
+  queue<TreeNode*> q;
+  q.push(root);
+  q.push(NULL);
+  while(!q.empty()) {
+    TreeNode* t = q.front();
+    q.pop();
+    if(t == NULL) {
+      ans.push_back(v);
+      v.clear();
+      if(!q.empty()) q.push(NULL);
+    }
+    else {
+      v.push_back(t->val);
+      if(t->left) q.push(t->left);
+      if(t->right) q.push(t->right);
+    }
+  }
+  reverse(ans.begin(), ans.end());
+  return ans;
+}
+
