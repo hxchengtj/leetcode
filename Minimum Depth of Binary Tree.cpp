@@ -23,8 +23,32 @@ public:
                     q.push(t->right);
             }
             q.pop();
-                
+
         }
         return ans;
     }
 };
+
+//redo
+int minDepth(TreeNode* root) {
+  if(root == NULL) return 0;
+  queue<TreeNode*> q;
+  q.push(root);
+  q.push(NULL);
+  int ans = 1;
+  while(!q.empty()) {
+    TreeNode* t = q.front();
+    q.pop();
+    if(t == NULL) {
+      ans++;
+      if(!q.empty()) q.push(NULL);
+    } else {
+      if(!t->left && !t->right) return ans;
+      if(t->left) q.push(t->left);
+      if(t->right) q.push(t->right);
+    }
+  }
+  return ans;
+}
+
+
