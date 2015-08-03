@@ -25,3 +25,24 @@ public:
         return ret;
     }
 };
+
+
+//redo
+TreeNode* sortedListToBST(ListNode* head) {
+  int n = 0;
+  for(ListNode* p = head; p; p = p->next) n++;
+  return dfs(0, n, head);
+}
+
+TreeNode* dfs(int l, int r, ListNode*& p) {
+  if(l >= r) return NULL;
+  int m = l + (r-l)/2;
+  TreeNode* left = dfs(l, m, p);
+  TreeNode* t = new TreeNode(p->val);
+  p = p->next;
+  TreeNode* right = dfs(m+1, r, p);
+  t->left = left;
+  t->right = right;
+  return t;
+}
+
