@@ -36,3 +36,29 @@ public:
         return ans;
     }
 };
+
+//redo
+vector<vector<int>> leverOrder(TreeNode* root) {
+  vector<vector<int>> ans;
+  vector<int> v;
+  if(root == NULL) return ans;
+  queue<TreeNode*> q;
+  q.push(root);
+  q.push(NULL);
+  while(!q.empty()) {
+    TreeNode* t = q.front();
+    q.pop();
+    if(t == NULL) {
+      ans.push_back(v);
+      v.clear();
+      if(!q.empty()) q.push(NULL);
+    }
+    else {
+      v.push_back(t->val);
+      if(t->left) q.push(t->left);
+      if(t->right) q.push(t->right);
+    }
+  }
+  return ans;
+}
+
