@@ -9,8 +9,8 @@ public:
         if(cal == '+')
             si.push(a + b);
         else if(cal == '-')
-            si.push(b-a); 
-        
+            si.push(b-a);
+
     }
     int calculate(string s) {
         stack<char> sc;
@@ -40,7 +40,7 @@ public:
             else if (s[i] == '(')
                 sc.push(s[i]);
             else if(s[i] != ' ')
-            {  
+            {
                 while(!sc.empty() && sc.top() != '(')
                 {
                     cal_num(si, sc.top());
@@ -53,7 +53,7 @@ public:
         {
             cal_num(si, sc.top());
             sc.pop();
-        }        
+        }
         return si.top();
     }
 };
@@ -79,7 +79,7 @@ public:
                         case '-': vals.top() -= a; break;
                     }
                     ops.pop();
-                       
+
                 }
                 if(b < s.size() && (s[b] == '+' || s[b] == '-'))  ops.push(s[b]);
                 b++;
@@ -98,3 +98,37 @@ public:
         return vals.top();
     }
 };
+
+//redo
+int calculate(string s) {
+  stack<int> val;
+  stack<char> ops;
+  int i = 0;
+  while(i <= s.size()) {
+    if(i == s.size() || s[i] == '+' || s[i] == '-' || s[i] == ')') {
+      while(!ops.empty() && ops.top() != '(') {
+        int a = val.top();
+        val.pop();
+        switch(ops.top()) {
+          case '+': val.top() += a; break;
+          case '-': val.top() -= a;
+        }
+        ops.pop();
+      }
+      if(i == s.size()) break;
+      else if(s[i] == ')') ops.pop();
+      else ops.push(s[i]);
+      i++;
+    }
+    else if(isdigit(s[i])) {
+      int j = i;
+      while(isdigit(s[i])) i++;
+      int a = stoi(s.substr(j, i-j));
+      val.push(a);
+    }
+    else if(s[i] == '(') ops.push(s[i++]);
+    else i++;
+  }
+  return val.top();
+}
+
