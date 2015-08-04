@@ -36,7 +36,6 @@ public:
 };
 
 
-// redo 
 // version2
 /**
  * Definition for binary tree with next pointer.
@@ -68,3 +67,26 @@ public:
         }
     }
 };
+
+//version2
+//redo
+void connect(TreeLinkNode *root) {
+  TreeLinkNode HEAD(0);
+  HEAD.next = root;
+  while(HEAD.next) {
+    TreeLinkNode* p = HEAD.next;
+    TreeLinkNode* tail = &HEAD;
+    HEAD.next = NULL;
+    for(;p; p = p->next) {
+      if(p->left) {
+        tail->next = p->left;
+        tail = tail->next;
+      }
+      if(p->right) {
+        tail->next = p->right;
+        tail = tail->next;
+      }
+    }
+  }
+}
+
