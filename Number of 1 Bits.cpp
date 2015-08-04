@@ -14,7 +14,7 @@ public:
 
 //version2
 class Solution {
-public:  
+public:
     int hammingWeight(uint32_t n) {
         int ans;
         ans = (n & 0x55555555) + ((n >> 1) & 0x55555555);
@@ -25,3 +25,15 @@ public:
         return ans;
     }
 }
+
+//version2
+//redo
+int hammingWeight(uint32_t n) {
+  int ans = ((n>>1) & 0x55555555) + (n & 0x55555555);
+  ans = ((ans>>2) & 0x33333333) + (ans & 0x33333333);
+  ans = ((ans>>4) & 0x0f0f0f0f) + (ans & 0x0f0f0f0f);
+  ans = ((ans>>8) & 0x00ff00ff) + (ans & 0x00ff00ff);
+  ans = ((ans>>16) & 0x0000ffff) + (ans & 0x0000ffff);
+  return ans;
+}
+
