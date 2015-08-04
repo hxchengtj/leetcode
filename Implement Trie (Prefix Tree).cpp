@@ -21,7 +21,7 @@ public:
         TrieNode* t = root;
         for(int i = 0; i < word.size(); i++) {
             int j = word[i]-'a';
-            if(t->child[j] == NULL) 
+            if(t->child[j] == NULL)
                 t->child[j] = new TrieNode();
             t = t->child[j];
         }
@@ -52,7 +52,7 @@ public:
                 return false;
             t = t->child[j];
         }
-        return true;        
+        return true;
     }
 
 private:
@@ -63,3 +63,53 @@ private:
 // Trie trie;
 // trie.insert("somestring");
 // trie.search("key");
+
+
+//redo
+class TrieNode {
+  public:
+    bool isEnd;
+    TrieNode* child[26];
+    TrieNode() {
+      isEnd = false;
+      for(int i = 0; i < 26; i++)
+        child[i] = NULL;
+    }
+};
+
+class Trie {
+  public:
+    Trie() {
+      root = new TrieNode();
+    }
+
+    void insert(string word) {
+      TrieNode* t = root;
+      for(char c:word) {
+        if(t->child[c-'a'] == NULL) t->child[c-'a'] = new TrieNode();
+        t = t->child[c-'a'];
+      }
+      t->isEnd = true;
+    }
+
+    bool search(string word) {
+      TrieNode* t = root;
+      for(char c:word) {
+        if(t->child[c-'a'] == NULL) return false;
+        t = t->child[c-'a'];
+      }
+      return t->isEnd;
+    }
+
+    bool startsWith(string prefix) {
+      TrieNode* t = root;
+      for(char c:prefix) {
+        if(t->child[c-'a'] == NULL) return false;
+        t = t->child[c-'a'];
+      }
+      return true;
+    }
+  private:
+    TrieNode* root;
+};
+
