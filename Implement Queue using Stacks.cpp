@@ -32,7 +32,7 @@ public:
         while(!tmp.empty()) {
             stk.push(tmp.top());
             tmp.pop();
-        }        
+        }
         return ret;
     }
 
@@ -80,3 +80,40 @@ public:
         return pushstk.empty() && popstk.empty();
     }
 };
+
+
+//redo
+class Queue {
+  public:
+    stack<int> pushstk;
+    stack<int> popstk;
+
+    void push(int x) {
+      pushstk.push(x);
+    }
+
+    void pop(void) {
+      if(popstk.empty()) {
+        while(!pushstk.empty()) {
+          popstk.push(pushstk.top());
+          pushstk.pop();
+        }
+      }
+      popstk.pop();
+    }
+
+    int peek(void) {
+      if(popstk.empty()) {
+        while(!pushstk.empty()) {
+          popstk.push(pushstk.top());
+          pushstk.pop();
+        }
+      }
+      return popstk.top();
+    }
+
+    bool empty(void) {
+      return pushstk.empty() && popstk.empty();
+    }
+};
+
