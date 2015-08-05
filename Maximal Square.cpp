@@ -4,7 +4,7 @@ public:
         if(matrix.size() == 0 || matrix[0].size() == 0)
             return 0;
         int m = matrix.size(), n = matrix[0].size();
-        
+
         int f[m][n];
         int maxf = 0;
         for(int i = 0; i < n; i++) {
@@ -35,3 +35,21 @@ public:
         return maxf*maxf;
     }
 };
+
+//redo
+int maximalSquare(vector<vector<char>>& matrix) {
+  if(matrix.size() == 0 || matrix[0].size() == 0) return 0;
+  int m = matrix.size(), n = matrix[0].size();
+  vector<vector<int>> f(2, vector<int>(n+1, 0));
+  int maxf = 0;
+  for(int i = 0; i < m; i++)
+    for(int j = 0; j < n; j++) {
+      if(matrix[i][j] == '0') f[i%2][j+1] = 0;
+      else {
+        f[i%2][j+1] = min({f[(i+1)%2][j], f[(i+1)%2][j+1], f[i%2][j]})+1;
+        maxf = max(maxf, f[i%2][j+1]);
+      }
+    }
+  return maxf*maxf;
+}
+
