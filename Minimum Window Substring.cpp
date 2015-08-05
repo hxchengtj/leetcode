@@ -38,3 +38,32 @@ public:
         return ans;
     }
 };
+
+//redo
+string minWindow(string s, string t) {
+  int dict[128], mapping[128];
+  memset(dict, 0, sizeof(dict));
+  memset(mapping, 0, sizeof(mapping));
+
+  int m = s.size(), n = t.size();
+  if(n == 0) return "";
+
+  for(auto c:t) dict[c]++;
+  int ansl = 0, ansr = 0, i = 0, j = 0, count = 0;
+  while(i+n <= m) {
+    if(count < n) {
+      if(j >= m) break;
+      if(mapping[s[j]]++ < dict[s[j]]) count++;
+      j++;
+    }
+    else {
+      if(ansr == ansl || ansr-ansl > j-i) {
+        ansr = j; ansl = i;
+      }
+      if(mapping[s[i]]-- <= dict[s[i]]) count--;
+      i++;
+    }
+  }
+  return s.substr(ansl, ansr-ansl);
+}
+
