@@ -25,3 +25,24 @@ public:
         return ans;
     }
 };
+
+//redo
+string simplifyPath(string path) {
+  vector<string> v;
+  int i = 0, n = path.size();
+  while(i < n) {
+    int j = i;
+    while(j < n && path[j] != '/') j++;
+    string s = path.substr(i, j-i);
+    if(s == "..") {
+      if(!v.empty()) v.pop_back();
+    }
+    else if(s.size() > 0 && s != ".") v.push_back(s);
+    i = j+1;
+  }
+  if(v.empty()) return "/";
+  string ans;
+  for(auto &c:v) ans.append('/'+c);
+  return ans;
+}
+
