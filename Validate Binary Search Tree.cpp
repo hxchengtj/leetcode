@@ -41,3 +41,23 @@ public:
         return true;
     }
 };
+
+//version2
+//redo
+bool isValidBST(TreeNode* root) {
+  TreeNode* p = root, *prev = NULL;
+  stack<TreeNode*> stk;
+  while(p || !stk.empty()) {
+    while(p) {
+      stk.push(p);
+      p = p->left;
+    }
+    TreeNode* t = stk.top();
+    stk.pop();
+    if(prev && prev->val >= t->val) return false;
+    prev = t;
+    p = t->right;
+  }
+  return true;
+}
+
