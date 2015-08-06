@@ -8,14 +8,13 @@ public:
         for(i = 0; i < n; i++) {
             sum += A[i];
             maxsum = max(maxsum, sum);
-            if(sum < 0) 
+            if(sum < 0)
                 sum = 0;
         }
         return maxsum;
     }
 };
 
-//redo
 //version2
 class Solution {
 public:
@@ -29,3 +28,15 @@ public:
         return ret;
     }
 };
+
+//redo
+int maxSubArray(vector<int>& nums) {
+  if(nums.size() == 0) return 0;
+  int maxsum = nums[0], sum = nums[0];
+  for(int i = 1; i < nums.size(); i++) {
+    sum = max(0, sum)+nums[i];
+    maxsum = max(maxsum, sum);
+  }
+  return maxsum;
+}
+
