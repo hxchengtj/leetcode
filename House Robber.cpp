@@ -26,3 +26,13 @@ public:
         return f[(nums.size()-1)%2];
     }
 };
+
+//redo
+int rob(vector<int>& nums) {
+  int f[2];
+  memset(f, 0, sizeof(f));
+  for(int i = 0; i < nums.size(); i++)
+    f[i%2] = max(f[i%2]+nums[i], f[(i+1)%2]);
+  return f[(nums.size()+1)%2];
+}
+
