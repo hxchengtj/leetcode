@@ -38,10 +38,29 @@ public:
         }
         for(auto &p:m) {
             if(p.second.size() > 1) {
-                for(auto i:p.second) 
+                for(auto i:p.second)
                     v.push_back(strs[i]);
             }
         }
         return v;
     }
 };
+
+//redo2
+vector<string> anagrams(vector<string>& strs) {
+  unordered_map<string, vector<int>> m;
+  for(int i = 0; i < strs.size(); i++) {
+    string t = strs[i];
+    sort(t.begin(), t.end());
+    m[t].push_back(i);
+  }
+  vector<string> ans;
+  for(auto &p:m) {
+    if(p.second.size() > 1) {
+      for(int i:p.second)
+        ans.push_back(strs[i]);
+    }
+  }
+  return ans;
+}
+
