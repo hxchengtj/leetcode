@@ -4,7 +4,7 @@ public:
     RandomListNode *copyRandomList(RandomListNode *head) {
         m[NULL] = NULL;
         return dfs(head);
-        
+
     }
     RandomListNode *dfs(RandomListNode *h) {
         if(m.find(h) != m.end())
@@ -16,3 +16,20 @@ public:
         return nh;
     }
 };
+
+//redo
+RandomListNode *copyRandomList(RandomListNode *head) {
+  unordered_map<RandomListNode*, RandomListNode*> m;
+  return __copyRandomList(head, m);
+}
+
+RandomListNode *__copyRandomList(RandomListNode *head, unordered_map<RandomListNode*, RandomListNode*>& m) {
+  if(head == NULL) return NULL;
+  if(m.find(head) != m.end()) return m[head];
+  RandomListNode* t = new RandomListNode(head->label);
+  m[head] = t;
+  t->next = __copyRandomList(head->next, m);
+  t->random = __copyRandomList(head->random, m);
+  return t;
+}
+
