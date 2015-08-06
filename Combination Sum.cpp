@@ -20,3 +20,26 @@ public:
         }
     }
 };
+
+//redo
+vector<vector<int>> ans;
+vector<int> v;
+void __combinationSum(vector<int>& candidates, int a, int target) {
+  if(target == 0) {
+    ans.push_back(v);
+    return;
+  }
+  for(int i = a; i < candidates.size() && candidates[i] <= target; i++) {
+    v.push_back(candidates[i]);
+    __combinationSum(candidates, i, target-candidates[i]);
+    v.pop_back();
+  }
+}
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+  sort(candidates.begin(), candidates.end());
+  ans.clear(); v.clear();
+  if(candidates.size() == 0) return ans;
+  __combinationSum(candidates, 0, target);
+  return ans;
+}
+
