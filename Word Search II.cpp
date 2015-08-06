@@ -13,7 +13,7 @@ public:
 class Trie {
 public:
     TrieNode* root;
-    
+
     Trie() {
         root = new TrieNode();
     }
@@ -23,13 +23,13 @@ public:
         TrieNode* t = root;
         for(int i = 0; i < word.size(); i++) {
             int j = word[i]-'a';
-            if(t->child[j] == NULL) 
+            if(t->child[j] == NULL)
                 t->child[j] = new TrieNode();
             t = t->child[j];
         }
         t->end = true;
     }
-    
+
 };
 
 
@@ -47,12 +47,12 @@ public:
             v.push_back(s);
             r->end = false;
         }
-        
+
         int f[4][2] = {{-1,0},{1,0},{0,1},{0,-1}};
         for(int i = 0; i < 4; i++) {
             int k = f[i][0] + x;
             int l = f[i][1] + y;
-            if(k >= 0 && k < board.size() && l >= 0 && l < board[0].size()) 
+            if(k >= 0 && k < board.size() && l >= 0 && l < board[0].size())
                 dfs(board, k, l, r, s);
         }
         board[x][y] = c;
@@ -72,4 +72,64 @@ public:
         return v;
     }
 };
+
+
+//redo
+class TrieNode {
+  public:
+    bool isEnd;
+    TrieNode* child[26];
+    TrieNode() {
+      isEnd = false;
+      for(int i = 0; i < 26; i++)
+        child[i] = NULL;
+    }
+};
+
+class Trie{
+  public:
+    TrieNode* root;
+    Trie(){
+      root = new TrieNode();
+    }
+    void addWord(string word) {
+      TrieNode* t = root;
+      for(char c:word) {
+        if(t->child[c-'a'] == NULL) t->child[c-'a'] = new TrieNode();
+        t = t->child[c-'a'];
+      }
+      t->isEnd = true;
+    }
+};
+vector<string> ans;
+string s;
+void __findWords(vector<vector<char>>& board, int x, int y, TrieNode* root) {
+  char c = board[x][y];
+  if(c == 0 || root->child[c-'a'] == NULL) return;
+  root = root->child[c-'a'];
+  s.push_back(c);
+  if(root->isEnd) {
+    ans.push_back(s);
+    root->isEnd = false;
+  }
+  board[x][y] = 0;
+  int f[4][2] = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+  for(int i = 0; i < 4; i++) {
+    int x1 = f[i][0]+x, y1 = f[i][1]+y;
+    if(x1 >= 0 && x1 < board.size() && y1 >= 0 && y1 < board[0].size())
+      __findWords(board, x1, y1, root);
+  }
+  s.pop_back();
+  board[x][y] = c;
+}
+vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+  Trie trie;
+  for(auto& word:words) trie.addWord(word);
+  ans.clear();
+  if(trie.root->isEnd) ans.push_back("");
+  for(int i = 0; i < board.size(); i++)
+    for(int j = 0; j < board[0].size(); j++)
+      __findWords(board, i, j, trie.root);
+  return ans;
+}
 
