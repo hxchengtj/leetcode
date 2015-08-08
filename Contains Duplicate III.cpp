@@ -26,7 +26,7 @@ public:
             if(j-1 >= 0 && nums[i]-v[j-1] >=0 && nums[i]-v[j-1] <= t)
                 return true;
             v.insert(v.begin()+j, nums[i]);
-                
+
         }
         return false;
     }
@@ -44,7 +44,7 @@ public:
             if (i > k) s.erase(nums[i-k-1]);
             auto it = s.insert(nums[i]);
             if(!it.second) return true;
-            
+
             if(it.first != s.begin()) {
                 auto jt = prev(it.first);
                 if(*jt < 0) {
@@ -54,7 +54,7 @@ public:
                     if(nums[i]- *jt <= t) return true;
                 }
             }
-            
+
             if(it.first != prev(s.end())) {
                 auto jt = next(it.first);
                 if(nums[i] < 0) {
@@ -68,3 +68,28 @@ public:
         return false;
     }
 };
+
+//redo
+bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+  if(t < 0) return false;
+  set<int> s;
+  int n = nums.size();
+  for(int i = 0; i < n; i++) {
+    if(i > k) s.erase(nums[i-k-1]);
+    auto ip = s.insert(nums[i]);
+    if(!ip.second) return true;
+    auto it = ip.first;
+    if(it != s.begin()) {
+      auto ij = prev(it);
+      if(*ij > 0 && nums[i]-*ij <= t) return true;
+      if(*ij <= 0 && nums[i] <= t+*ij) return true;
+    }
+    if(it != prev(s.end())) {
+      auto ij = next(it);
+      if(nums[i] > 0 && *ij-nums[i] <= t) return true;
+      if(nums[i] <= 0 && *ij <= t+nums[i]) return true;
+    }
+  }
+  return false;
+}
+
