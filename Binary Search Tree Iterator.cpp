@@ -19,7 +19,7 @@ public:
 
     /** @return whether we have a next smallest number */
     bool hasNext() {
-       return !s.empty(); 
+       return !s.empty();
     }
 
     //好像不是O(1)时间的。。。
@@ -42,3 +42,29 @@ public:
  * BSTIterator i = BSTIterator(root);
  * while (i.hasNext()) cout << i.next();
  */
+
+
+//redo
+class BSTIterator {
+  public:
+    BSTIterator(TreeNode *root) {
+      q = root;
+    }
+    bool hasNext() {
+      return q || !stk.empty();
+    }
+    int next() {
+      while(q) {
+        stk.push(q);
+        q = q->left;
+      }
+      TreeNode* t = stk.top();
+      stk.pop();
+      q = t->right;
+      return t->val;
+    }
+  private:
+    TreeNode* q;
+    stack<TreeNode*> stk;
+};
+
