@@ -45,7 +45,7 @@ public:
                 }
                 else if(sum > target) {
                     if(abs(target-ans) > abs(target-sum))
-                        ans = sum;                    
+                        ans = sum;
                     k--;
                 }
                 else return sum;
@@ -54,3 +54,36 @@ public:
         return ans;
     }
 };
+
+//redo
+int threeSumClosest(vector<int>& nums, int target) {
+  sort(nums.begin(), nums.end());
+  int n = nums.size(), ans = 0;
+  bool flag = false;
+  for(int i = 0; i < n-2; i++) {
+    if(i > 0 && nums[i] == nums[i-1]) continue;
+    int j = i+1, k = n-1;
+    while(j < k) {
+      int sum = nums[i]+nums[j]+nums[k];
+      if(j > i+1 && nums[j] == nums[j-1]) j++;
+      else if(k < n-1 && nums[k] == nums[k+1]) k--;
+      else if(sum == target) return sum;
+      else if(sum < target) {
+        if(!flag || abs(ans-target) > abs(target-sum)) {
+          flag = true;
+          ans = sum;
+        }
+        j++;
+      }
+      else {
+        if(!flag || abs(ans-target) > abs(sum-target)) {
+          flag = true;
+          ans = sum;
+        }
+        k--;
+      }
+    }
+  }
+  return ans;
+}
+
