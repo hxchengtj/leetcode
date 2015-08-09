@@ -31,3 +31,28 @@ public:
         return s;
     }
 };
+
+//redo
+string fractionToDecimal(int numerator, int denominator) {
+  long long num = numerator, den = denominator;
+  string s;
+  if((num > 0 && den < 0) || (num < 0 && den > 0)) s.push_back('-');
+  if(num < 0) num = -num;
+  if(den < 0) den = -den;
+  s.append(to_string(num/den));
+  num = num%den;
+  if(num == 0) return s;
+  s.push_back('.');
+  unordered_map<long long, int> m;
+  while(m.find(num) == m.end()) {
+    if(num == 0) return s;
+    m[num] = s.size();
+    num *= 10;
+    s.append(to_string(num/den));
+    num %= den;
+  }
+  s.insert(m[num], "(");
+  s.push_back(')');
+  return s;
+}
+
