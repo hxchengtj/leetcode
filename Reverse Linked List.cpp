@@ -23,3 +23,17 @@ public:
         return l;
     }
 };
+
+//redo
+ListNode* reverseList(ListNode* head) {
+  if(head == NULL) return NULL;
+  ListNode* tail = head;
+  while(tail->next) {
+    ListNode* t = tail->next;
+    tail->next = t->next;
+    t->next = head;
+    head = t;
+  }
+  return head;
+}
+
