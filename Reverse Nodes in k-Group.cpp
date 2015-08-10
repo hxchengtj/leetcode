@@ -36,3 +36,27 @@ public:
         return HEAD.next;
     }
 };
+
+//redo
+ListNode* reverseKGroup(ListNode* head, int k) {
+  if(k <= 1) return head;
+  ListNode HEAD(0);
+  HEAD.next = head;
+  ListNode* prev = &HEAD;
+  while(prev->next) {
+    ListNode* p = prev;
+    for(int i = 0; i < k && p; i++) p = p->next;
+    if(p == NULL) break;
+
+    ListNode* tail = prev->next;
+    for(int i = 0; i < k-1; i++) {
+      ListNode* t = tail->next;
+      tail->next = t->next;
+      t->next = prev->next;
+      prev->next = t;
+    }
+    prev = tail;
+  }
+  return HEAD.next;
+}
+
