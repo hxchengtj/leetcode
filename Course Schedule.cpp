@@ -22,7 +22,7 @@ public:
          }
          while(n) {
             bool flag = true;
-            for(int i = 0; i < numCourses; i++) 
+            for(int i = 0; i < numCourses; i++)
                 if(f[i] == 0) {
                     flag = false;
                     if(m.find(i) != m.end()) {
@@ -53,7 +53,7 @@ public:
             graph[t.second].push_back(t.first);
             f[t.first]++;
         }
-        
+
         stack<int> stk;
         for(int i = 0; i < numCourses; i++)
             if(f[i] == 0) stk.push(i);
@@ -71,3 +71,28 @@ public:
         return n == numCourses;
     }
 };
+
+//redo
+bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+  unordered_map<int, vector<int>> graph;
+  vector<int> count(numCourses, 0);
+  for(auto &p:prerequisites) {
+    graph[p.second].push_back(p.first);
+    count[p.first]++;
+  }
+  queue<int> q;
+  for(int i = 0; i < numCourses; i++)
+    if(count[i] == 0) q.push(i);
+  while(!q.empty()) {
+    int t = q.front();
+    q.pop();
+    for(auto a:graph[t]) {
+      count[a]--;
+      if(count[a] == 0) q.push(a);
+    }
+  }
+  for(auto c:count)
+    if(c > 0) return false;
+  return true;
+}
+
