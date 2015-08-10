@@ -31,3 +31,34 @@ public:
         return q.empty();
     }
 };
+
+//redo
+class Stack {
+  public:
+    queue<int> que;
+    int topnum;
+    void push(int x) {
+      que.push(x);
+      topnum = x;
+    }
+
+    void pop() {
+      int n = que.size();
+      while(--n > 0) {
+        que.push(que.front());
+        topnum = que.front();
+        que.pop();
+      }
+      que.pop();
+    }
+
+    int top() {
+      if(!que.empty()) return topnum;
+      return -1;
+    }
+
+    bool empty() {
+      return que.empty();
+    }
+};
+
