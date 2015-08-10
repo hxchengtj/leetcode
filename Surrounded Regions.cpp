@@ -7,7 +7,7 @@ public:
         bool b[m][n];
         int a[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         queue<pair<int, int> > q;
-        for(i = 0; i < m; i++) 
+        for(i = 0; i < m; i++)
             for(j = 0; j < n; j++)
                 b[i][j] = false;
         for(i = 0; i < m; i++) {
@@ -45,9 +45,12 @@ public:
             q.pop();
         }
         for(i = 0; i < m; i++)
-            for(j = 0; j < n; j++) 
+            for(j = 0; j < n; j++)
                 if(!b[i][j])
                     board[i][j] = 'X';
-            
+
     }
 };
+
+//redo
+
