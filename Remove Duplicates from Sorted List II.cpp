@@ -28,10 +28,10 @@ public:
             if(p)
                 p->next = l;
             else
-                head = l; 
+                head = l;
         }
         return head;
-        
+
     }
 };
 
@@ -69,3 +69,24 @@ public:
         return HEAD.next;
     }
 };
+
+//redo
+ListNode* deleteDuplicates(ListNode* head) {
+  ListNode HEAD(0);
+  HEAD.next = head;
+  ListNode* tail = &HEAD, *p = head;
+  while(p){
+    if(p->next && p->next->val == p->val) {
+      while(p->next && p->next->val == p->val) {
+        ListNode* t = p->next;
+        p->next = t->next;
+        delete t;
+      }
+      tail->next = p->next;
+      delete p;
+    } else tail = tail->next;
+    p = tail->next;
+  }
+  return HEAD.next;
+}
+
