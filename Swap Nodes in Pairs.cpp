@@ -44,3 +44,19 @@ public:
         return HEAD.next;
     }
 };
+
+//redo
+ListNode* swapPairs(ListNode* head) {
+  ListNode HEAD(0);
+  HEAD.next = head;
+  ListNode* pre = &HEAD;
+  while(pre->next && pre->next->next) {
+    ListNode* p = pre->next, * q = p->next;
+    p->next = q->next;
+    q->next = p;
+    pre->next = q;
+    pre = p;
+  }
+  return HEAD.next;
+}
+
