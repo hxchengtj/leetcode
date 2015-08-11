@@ -10,7 +10,7 @@ public:
                 sum += 1;
             else
                 sum += -1;
-            if(sum == 0) 
+            if(sum == 0)
                 maxl = max(maxl, i - j + 1);
             else if(sum < 0) {
                 sum = 0;
@@ -24,7 +24,7 @@ public:
                 sum += 1;
             else
                 sum += -1;
-            if(sum == 0) 
+            if(sum == 0)
                 maxl = max(maxl, j - i + 1);
             else if(sum > 0) {
                 sum = 0;
@@ -34,3 +34,20 @@ public:
         return maxl;
     }
 };
+
+//version2
+int longestValidParentheses(string s) {
+  stack<int> stk;
+  int j = 0, ans = 0;
+  for(int i = 0; i < s.size(); i++) {
+    if(s[i] == '(') stk.push(i);
+    else if(stk.empty()) j = i+1;
+    else {
+      stk.pop();
+      int k = stk.empty()? j:stk.top()+1;
+      ans = max(ans, i-k+1);
+    }
+  }
+  return ans;
+}
+
