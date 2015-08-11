@@ -15,3 +15,19 @@ public:
         return ans;
     }
 };
+
+//redo
+int countDigitOne(int n) {
+  if(n <= 0) return 0;
+  long long t = 1;
+  int ans = 0;
+  while(n >= t) {
+    ans += (n/(10*t))*t;
+    int a = (n/t)%10;
+    if(a == 1) ans += (n%t)+1;
+    else if(a > 1) ans += t;
+    t = t*10;
+  }
+  return ans;
+}
+
