@@ -26,9 +26,22 @@ public:
                 l = m+1;
             else if(m-1 >= 0 && num[m] < num[m-1])
                 r = m-1;
-            else 
+            else
                 return m;
         }
         return l;
     }
 };
+
+//version2
+int findPeakElement(vector<int>& nums) {
+  int n = nums.size();
+  int l = 0, r = n-1;
+  while(l < r) {
+    int m = l+(r-l)/2;
+    if(nums[m] < nums[m+1]) l = m+1;
+    else r = m;
+  }
+  return l;
+}
+
