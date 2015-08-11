@@ -18,3 +18,26 @@ public:
         return l1->next;
     }
 };
+
+//redo
+ListNode* partition(ListNode* head, int x) {
+  ListNode HEAD(0);
+  HEAD.next = head;
+  ListNode* tail1 = &HEAD, * tail2 = &HEAD;
+  while(tail2->next) {
+    ListNode* p = tail2->next;
+    if(p->val >= x) tail2 = tail2->next;
+    else {
+      if(tail1 == tail2) tail1 = tail2 = tail2->next;
+      else {
+        ListNode* t = p->next;
+        tail2->next = t;
+        p->next = tail1->next;
+        tail1->next = p;
+        tail1 = p;
+      }
+    }
+  }
+  return HEAD.next;
+}
+
