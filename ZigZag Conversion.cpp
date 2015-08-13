@@ -22,3 +22,25 @@ public:
         return ans;
     }
 };
+
+//redo
+string convert(string s, int numRows) {
+  if(numRows <= 1) return s;
+  int f[2];
+  string ans;
+  int n = s.size();
+  for(int i = 0; i < numRows; i++) {
+    f[0] = 2*(numRows-i-1);
+    f[1] = 2*i;
+    if(f[0] == 0) f[0] = f[1];
+    if(f[1] == 0) f[1] = f[0];
+    int j = i, k = 0;
+    while(j < n) {
+      ans.push_back(s[j]);
+      j += f[k];
+      k = (k+1)%2;
+    }
+  }
+  return ans;
+}
+
