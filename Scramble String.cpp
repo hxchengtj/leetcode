@@ -26,8 +26,25 @@ public:
                         }
                     }
                 }
-                
+
         return f[0][0][s1.length()];
-        
+
     }
 };
+
+//redo
+bool isScramble(string s1, string s2) {
+  if(s1 == s2) return true;
+  string ss1(s1), ss2(s2);
+  sort(ss1.begin(), ss1.end());
+  sort(ss2.begin(), ss2.end());
+  if(ss1 != ss2) return false;
+  int n = s1.size();
+  for(int i = 1; i < n; i++) {
+    if((isScramble(s1.substr(0, i), s2.substr(0, i)) && isScramble(s1.substr(i, n-i), s2.substr(i, n-i))) ||
+           (isScramble(s1.substr(0, i), s2.substr(n-i, i)) && isScramble(s1.substr(i, n-i), s2.substr(0, n-i))) )
+      return true;
+  }
+  return false;
+}
+
