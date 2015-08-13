@@ -55,10 +55,10 @@ public:
             ListNode* tail1 = tail;
             for(int i = 0; i < n && tail1->next; i++) tail1 = tail1->next;
             if(tail1->next == NULL && tail == &HEAD) return HEAD.next;
-            
+
             ListNode* tail2 = tail1;
             for(int i = 0; i < n && tail2->next; i++) tail2 = tail2->next;
-            
+
             ListNode* nexthead = tail2->next;
             ListNode* head1 = tail->next, *head2 = tail1->next;
             tail1->next = NULL; tail2->next = NULL;
@@ -92,3 +92,44 @@ public:
         return HEAD.next;
     }
 };
+
+//redo
+ListNode* sortList(ListNode* head) {
+  int k = 1, l = 0;
+  ListNode HEAD(0);
+  HEAD.next = head;
+  for(ListNode* p = head; p; p = p->next) l++;
+  ListNode* tail = &HEAD;
+  while(k < l) {
+    ListNode* tail1 = tail;
+    for(int i = 0; i < k && tail1->next; i++) tail1 = tail1->next;
+    ListNode* tail2 = tail1;
+    for(int i = 0; i < k && tail2->next; i++) tail2 = tail2->next;
+    ListNode* head1 = tail->next, *head2 = tail1->next, *nexthead = tail2->next;
+    tail1->next = NULL, tail2->next = NULL;
+    while(head1 && head2) {
+      if(head1->val < head2->val) {
+        tail->next = head1;
+        head1 = head1->next;
+      } else {
+        tail->next = head2;
+        head2 = head2->next;
+      }
+      tail = tail->next;
+    }
+    if(head1) {
+      tail->next = head1;
+      tail = tail1;
+    } else if(head2) {
+      tail->next = head2;
+      tail = tail2;
+    }
+    tail->next = nexthead;
+    if(nexthead == NULL) {
+      k *= 2;
+      tail = &HEAD;
+    }
+  }
+  return HEAD.next;
+}
+
