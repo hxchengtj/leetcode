@@ -17,3 +17,33 @@ public:
         return ans;
     }
 };
+
+// O(NlogN)
+class Solution {
+public:
+    int _search(vector<int>& f, int a) {
+        int l = 0, r = f.size()-1;
+        while (l <= r) {
+            int m = (l+r)/2;
+            if (f[m] < a) l = m+1;
+            else r = m-1;
+        }
+        return l;
+    }
+    int maxEnvelopes(vector<pair<int, int>>& envelopes) {
+        int n = envelopes.size();
+        if(n == 0) return 0;
+        sort(envelopes.begin(), envelopes.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
+            return a.first == b.first? a.second > b.second : a < b;
+        });
+        vector<int> f(n, INT_MAX);
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            auto p = envelopes[i];
+            int j = _search(f, p.second);
+            ans = max(ans, j+1);
+            f[j] = p.second;
+        }
+        return ans;
+    }
+};
