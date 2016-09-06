@@ -79,3 +79,25 @@ int search(vector<int>& nums, int target) {
   return max(__search(nums, 0, m+1, target), __search(nums, m+1, n, target));
 }
 
+//redo
+class Solution {
+public:
+    int __search(vector<int>& nums, int l, int r, int target) {
+        while(l <= r) {
+            int m = l + (r-l)/2;
+            if(nums[m] == target) return m;
+            else if(nums[m] < target) l = m+1;
+            else r = m-1;
+        }
+        return -1;
+    }
+    int search(vector<int>& nums, int target) {
+        int n = nums.size(), l = 0, r = n-1;
+        while(l <= r) {
+            int m = l + (r-l)/2;
+            if(nums[0] <= nums[m]) l = m+1;
+            else r = m-1;
+        }
+        return max(__search(nums, 0, l-1, target), __search(nums, l, n-1, target));
+    }
+};
