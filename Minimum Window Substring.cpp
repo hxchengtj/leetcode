@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     string minWindow(string S, string T) {
@@ -67,3 +68,30 @@ string minWindow(string s, string t) {
   return s.substr(ansl, ansr-ansl);
 }
 
+
+//redo2
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int m = s.size(), n = t.size();
+        if(m == 0 || n == 0) return "";
+        unordered_map<char, int> dict, mapped;
+        for(auto c:t) dict[c]++;
+        int i = 0, j = 0, cnt = 0, ansl = 0, ansCnt = 0;
+        while(j <= m) {
+            if(cnt < n) {
+                if(j == m) break;
+                if(dict.find(s[j]) != dict.end() && mapped[s[j]]++ < dict[s[j]]) cnt++;
+                j++;
+            } else {
+                if(ansCnt == 0 || ansCnt > j-i) {
+                    ansl = i;
+                    ansCnt = j-i;
+                }
+                if(dict.find(s[i]) != dict.end() && mapped[s[i]]-- <= dict[s[i]]) cnt--;
+                i++;
+            }
+        }
+        return s.substr(ansl, ansCnt);
+    }
+};

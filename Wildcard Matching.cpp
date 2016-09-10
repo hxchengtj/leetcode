@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     bool isMatch(const char *s, const char *p) {
@@ -85,6 +86,7 @@ public:
 //redo
 bool isMatch(string s, string p) {
   int ns = s.size(), np = p.size();
+  // corner case
   if(np == 0) {
     if(ns == 0) return true;
     else return false;

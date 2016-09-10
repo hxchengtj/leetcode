@@ -1,3 +1,4 @@
+/* review again */
 int myAtoi(string str) {
   int n = str.size();
   int l = 0, r = n-1;
@@ -19,4 +20,23 @@ int myAtoi(string str) {
   return isNeg? ans:-ans;
 }
 
-
+//redo 
+class Solution {
+public:
+    int myAtoi(string str) {
+        bool isNeg = false;
+        int ans = 0, i = 0, n = str.size();
+        while(i < n && str[i] == ' ') i++;
+        if(str[i] == '+' || str[i] == '-') {
+            if(str[i] == '-') isNeg = true;
+            i++;
+        } 
+        for(; i < n && str[i] >= '0' && str[i] <= '9'; i++) {
+            if(ans >= (INT_MIN + (str[i]-'0')) / 10) ans = 10*ans-(str[i]-'0');
+            else {
+                ans = INT_MIN; break;
+            }
+        }
+        return isNeg? ans: (ans == INT_MIN?INT_MAX:-ans);
+    }
+};

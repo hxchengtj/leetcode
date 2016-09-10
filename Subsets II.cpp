@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     vector<vector<int> > ans;
@@ -62,3 +63,29 @@ vector<vector<int>> subsetsWithDup(vector<int>& nums) {
   return ans;
 }
 
+//version2
+class Solution {
+public:
+    void dfs(vector<vector<int>> &ans, vector<int> & v, vector<int>& nums, int idx) {
+        int n = nums.size();
+        if(idx == n) {
+            ans.push_back(v);
+            return;
+        }
+        int end = idx+1, m = v.size();
+        while(end < n && nums[end] == nums[idx]) end++;
+        dfs(ans, v, nums, end);
+        for(int i = idx; i < end; i++) {
+            v.push_back(nums[i]);
+            dfs(ans, v, nums, end);
+        }
+        v.resize(m);
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        vector<int> v;
+        dfs(ans, v, nums, 0);
+        return ans;
+    }
+};

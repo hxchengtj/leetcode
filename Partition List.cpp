@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     ListNode *partition(ListNode *head, int x) {
@@ -41,3 +42,24 @@ ListNode* partition(ListNode* head, int x) {
   return HEAD.next;
 }
 
+//version2
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode HEAD1(0), HEAD2(0);
+        ListNode* l = &HEAD1, *r = &HEAD2;
+        while(head) {
+            if(head->val < x) {
+                l->next = head;
+                l = l->next;
+            } else {
+                r->next = head;
+                r = r->next;
+            }
+            head = head->next;
+        }
+        l->next = HEAD2.next;
+        r->next = NULL;
+        return HEAD1.next;
+    }
+};
