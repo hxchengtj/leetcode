@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     TreeNode *l = NULL;
@@ -55,3 +56,16 @@ void flatten(TreeNode* root) {
   }
 }
 
+//version3
+class Solution {
+public:
+    TreeNode* prev = NULL;
+    void flatten(TreeNode* root) {
+        if(!root) return;
+        flatten(root->right);
+        flatten(root->left);
+        root->right = prev;
+        root->left = NULL;
+        prev = root;
+    }
+};
