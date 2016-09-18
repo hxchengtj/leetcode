@@ -19,3 +19,24 @@ public:
     return ans;
   }
 };
+
+
+//version2
+class Solution {
+public:
+    int lengthOfLongestSubstringTwoDistinct(string s) {
+        int n = s.size(), i = 0, j = 0, ans = 0;
+        unordered_map<char, int> cnt;
+        while(i < n) {
+            if(cnt.size() <= 2) ans = max(ans, j-i);
+            if(j < n && (cnt.size() < 2 || cnt.find(s[j]) != cnt.end()) ) {
+                cnt[s[j++]]++;
+            } else {
+                cnt[s[i]]--;
+                if(cnt[s[i]] == 0) cnt.erase(s[i]);
+                i++;
+            }
+        }
+        return ans;
+    }
+};
