@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     int maximumGap(vector<int>& nums) {
@@ -71,6 +72,7 @@ int maximumGap(vector<int>& nums) {
   int minnum = *min_element(nums.begin(), nums.end());
   int maxnum = *max_element(nums.begin(), nums.end());
   int T = max((maxnum-minnum+n-2)/(n-1), 1);
+  //此处应该用n, 如果maxnum-minnum可以被n-1整除,则maxnum被切分在mins[n-1]和maxs[n-1]
   vector<int> mins(n, 0), maxs(n, -1);
   for(auto a:nums) {
     int b = (a-minnum)/T;

@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     int compareVersion(string version1, string version2) {
@@ -57,6 +58,7 @@ public:
 int compareVersion(string version1, string version2) {
   int l1 = 0, l2 = 0, end1 = version1.size(), end2 = version2.size();
   while(l1 < end1 || l2 < end2) {
+    //注意此处的find用法 可以设置pos的位置
     int r1 = version1.find('.', l1);
     int r2 = version2.find('.', l2);
     if(r1 == -1) r1 = end1;

@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     string fractionToDecimal(int numerator, int denominator) {
@@ -34,6 +35,7 @@ public:
 
 //redo
 string fractionToDecimal(int numerator, int denominator) {
+  // 注意需要用 long long
   long long num = numerator, den = denominator;
   string s;
   if((num > 0 && den < 0) || (num < 0 && den > 0)) s.push_back('-');
