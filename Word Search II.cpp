@@ -133,3 +133,63 @@ vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
   return ans;
 }
 
+//version2
+class TrieNode {
+public:
+    TrieNode* child[26];
+    bool isEnd = false;
+    TrieNode() {
+        for(int i = 0; i < 26; i++) 
+            child[i] = NULL;
+    }
+    ~TrieNode() {
+        for(int i = 0; i < 26; i++)
+            if(child[i]) delete child[i];
+    }
+};
+
+TrieNode* buildTrie(vector<string>& words) {
+    TrieNode* root = new TrieNode();
+    for(auto& w:words) {
+        TrieNode* t = root;
+        for(char c:w) {
+            if(t->child[c-'a'] == NULL) t->child[c-'a'] = new TrieNode();
+            t = t->child[c-'a'];
+        }
+        t->isEnd = true;
+    }
+    return root;
+}
+class Solution {
+public:
+    void dfs(vector<vector<char>>& board, TrieNode* root, vector<string>& ans, string& s, int x, int y) {
+        if(x < 0 || x >= board.size() || y < 0 || y >= board[0].size()) 
+            return;
+        char c = board[x][y];
+        if(c == '#' || root->child[c-'a'] == NULL) return;
+        s.push_back(c);
+        root = root->child[c-'a'];
+        if(root->isEnd) 
+            ans.push_back(s);
+        //记得此处去重
+        root->isEnd = false;
+        board[x][y] = '#';
+        dfs(board, root, ans, s, x+1, y);
+        dfs(board, root, ans, s, x-1, y);
+        dfs(board, root, ans, s, x, y+1);
+        dfs(board, root, ans, s, x, y-1);
+        board[x][y] = c;
+        s.pop_back();
+        
+    }
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        if(board.size() == 0 || board[0].size() == 0 || words.size() == 0) return {};
+        TrieNode* root = buildTrie(words);
+        vector<string> ans;
+        string s;
+        for(int i = 0; i < board.size(); i++)
+            for(int j = 0; j < board[i].size(); j++)
+                dfs(board, root, ans, s, i, j);
+        return ans;
+    }
+};
