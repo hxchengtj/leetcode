@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     int rangeBitwiseAnd(int m, int n) {
@@ -19,3 +20,13 @@ int rangeBitwiseAnd(int m, int n) {
   return ans & (a << i);
 }
 
+//redo
+class Solution {
+public:
+    int rangeBitwiseAnd(int m, int n) {
+        int ans = m & n, num = n-m+1;
+        for(int i = 0; i < 31 && (1 << i) < num; i++) 
+            ans &= (~(1 << i));
+        return ans;
+    }
+};

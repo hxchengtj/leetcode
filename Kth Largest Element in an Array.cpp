@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     int findupper(vector<int> &v, int n) {
@@ -87,3 +88,33 @@ int findkth(vector<int> &nums, int k) {
   }
 }
 
+
+//version3
+class Solution {
+public:
+    int partition(vector<int>& nums, int l, int r) {
+        int a = nums[l], b = l;
+        l++;
+        while(l <= r) {
+            //这样做使得和a相等的可能在左侧或右侧, 这样更容易分到中间
+            if(nums[l] < a && nums[r] > a) {
+                swap(nums[l++], nums[r--]);
+            }
+            else if(nums[l] >= a) l++;
+            else if(nums[r] <= a) r--;
+        }
+        swap(nums[r], nums[b]);
+        return r;
+    }
+    int findKthLargest(vector<int>& nums, int k) {
+        int n = nums.size(), l = 0, r = n-1;
+        k--;
+        while(l <= r) {
+            int m = partition(nums, l, r);
+            if(m == k) return nums[m];
+            else if(m < k) l = m+1;
+            else r = m-1;
+        }
+        return -1;
+    }
+};

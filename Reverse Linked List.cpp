@@ -1,3 +1,4 @@
+/* review again */
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -37,3 +38,21 @@ ListNode* reverseList(ListNode* head) {
   return head;
 }
 
+//version2
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode HEAD(0);
+        HEAD.next = head;
+        if(head == NULL) return head;
+        ListNode* p = head->next;
+        head->next = NULL;
+        while(p) {
+            ListNode* t = p->next;
+            p->next = HEAD.next;
+            HEAD.next = p;
+            p = t;
+        }
+        return HEAD.next;
+    }
+};
