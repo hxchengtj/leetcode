@@ -1,3 +1,4 @@
+/* review again */
 bool searchMatrix(vector<vector<int>>& matrix, int target) {
   if(matrix.size() == 0 || matrix[0].size() == 0) return false;
   int m = matrix.size(), n = matrix[0].size();
@@ -24,3 +25,20 @@ bool searchMatrix(vector<vector<int>>& matrix, int target) {
   return false;
 }
 
+//version2
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if(matrix.size() == 0 || matrix[0].size() == 0) 
+            return false;
+        int m = matrix.size(), n = matrix[0].size();
+        int row = 0, col = n-1;
+        while(row < m && col >= 0) {
+            int a = matrix[row][col];
+            if(a == target) return true;
+            else if(a < target) row++;
+            else col--;
+        }
+        return false;
+    }
+};
