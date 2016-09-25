@@ -109,6 +109,7 @@ int calculate(string s) {
       while(!ops.empty() && ops.top() != '(') {
         int a = val.top();
         val.pop();
+        // 记得break > <
         switch(ops.top()) {
           case '+': val.top() += a; break;
           case '-': val.top() -= a;

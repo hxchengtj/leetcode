@@ -1,3 +1,4 @@
+/* review again */
 //redo
 class Solution {
 public:
@@ -48,6 +49,7 @@ vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
     v.push_back(make_pair(a[0], a[2]));
     v.push_back(make_pair(a[1], -a[2]));
   }
+  //这里的排序很重要
   sort(v.begin(), v.end(), [](const pair<int, int>& a, const pair<int, int>& b){
       if(a.first != b.first) return a.first < b.first;
       return a.second > b.second;
@@ -56,6 +58,7 @@ vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
   for(auto &a:v) {
     if(a.second > 0) m[a.second]++;
     else {
+      // 记得不要忘记负号
       m[-a.second]--;
       if(m[-a.second] == 0) m.erase(-a.second);
     }
