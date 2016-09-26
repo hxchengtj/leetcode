@@ -25,3 +25,34 @@ private:
   string lnum = "01689";
   string rnum = "01968";
 };
+
+//version2
+class Solution {
+public:
+    void dfs(string& low, string& high, string& s, int l, int r, int& cnt) {
+        if(l > r) {
+            if(s.size() == low.size() && s < low ||
+               s.size() == high.size() && s > high) return;
+            cnt++;
+            return;
+        }
+        for(int i = 0; i < ls.size(); i++) {
+            s[l] = ls[i];
+            s[r] = rs[i];
+            if(s[0] == '0' && s.size() > 1) continue;
+            if(l < r || (l == r && ls[i] == rs[i])) 
+                dfs(low, high, s, l+1, r-1, cnt);
+        }
+    }
+    int strobogrammaticInRange(string low, string high) {
+        int cnt = 0;
+        for(int i = low.size(); i <= high.size(); i++) {
+            string s(i, '0');
+            dfs(low, high, s, 0, i-1, cnt);
+        }
+        return cnt;
+    }
+private:
+    string ls = "01689";
+    string rs = "01986";
+};
