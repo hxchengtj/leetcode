@@ -18,3 +18,17 @@ vector<string> binaryTreePaths(TreeNode* root) {
   return ans;
 }
 
+//version2
+class Solution {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        if(!root) return {};
+        if(!root->left && !root->right)
+            return {to_string(root->val)};
+        vector<string> v = binaryTreePaths(root->left), ans;
+        for(auto& a:v) ans.push_back(to_string(root->val)+"->"+a);
+        v = binaryTreePaths(root->right);
+        for(auto& a:v) ans.push_back(to_string(root->val)+"->"+a);
+        return ans;
+    }
+};
