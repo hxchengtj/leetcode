@@ -20,3 +20,30 @@ public:
     return f[(n+1)&1][min1];
   }
 };
+
+//version2
+class Solution {
+public:
+    int minCostII(vector<vector<int>>& costs) {
+        if(costs.size() == 0 || costs[0].size() == 0) return 0;
+        int n = costs.size(), k = costs[0].size();
+        int preMin = 0, preSec = 0, preId = 0;
+        for(int i = 0; i < n; i++) {
+            int curMin = INT_MAX, curSec = INT_MAX, curId = -1;
+            for(int j = 0; j < k; j++) {
+                int c = costs[i][j] + (j==preId?preSec:preMin);
+                if(c < curMin) {
+                    curSec = curMin;
+                    curMin = c;
+                    curId = j;
+                } else if(c < curSec) {
+                    curSec = c;
+                } 
+            }
+            preMin = curMin;
+            preSec = curSec;
+            preId = curId;
+        }
+        return preMin;
+    }
+};
