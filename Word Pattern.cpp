@@ -10,6 +10,7 @@ public:
             while(i < n && str[i] != ' ') i++;
             if(j == i) return false;
             string s = str.substr(j, i-j);
+            // 一一对应关系
             if(dict[c-'a'].size() > 0 && dict[c-'a'] != s ) return false;
             if(m.find(s) != m.end() && m[s] != c) return false;
             dict[c-'a'] = s;

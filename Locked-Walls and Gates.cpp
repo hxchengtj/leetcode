@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
   void wallsAndGates(vector<vector<int>>& rooms) {
@@ -23,6 +24,32 @@ public:
               }
             }
           }
+        }
+    }
+};
+
+//version2
+class Solution {
+public:
+    void wallsAndGates(vector<vector<int>>& rooms) {
+        if(rooms.size() == 0 || rooms[0].size() == 0) return;
+        int m = rooms.size(), n = rooms[0].size();
+        queue<pair<int, int>> q;
+        for(int i = 0; i < m; i++)
+            for(int j = 0; j < n; j++) {
+                if(!rooms[i][j]) q.push({i, j});
+            }
+        int f[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        while(!q.empty()) {
+            auto t = q.front();
+            q.pop();
+            for(int i = 0; i < 4; i++) {
+                int x = t.first+f[i][0], y = t.second+f[i][1];
+                if(x >= 0 && x < m && y >= 0 && y < n && rooms[x][y] == INT_MAX) {
+                    rooms[x][y] = rooms[t.first][t.second]+1;
+                    q.push({x, y});
+                }  
+            }
         }
     }
 };

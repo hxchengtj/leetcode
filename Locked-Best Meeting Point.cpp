@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
   int minTotalDistance(vector<vector<int>>& grid) {
@@ -12,6 +13,7 @@ public:
         }
     if(x.size() == 0) return 0;
     int midx = x[x.size()/2];
+    // 注意此处的用法
     nth_element(y.begin(), y.begin()+y.size()/2, y.end());
     int midy = y[y.size()/2];
     int dis = 0;
