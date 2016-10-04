@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) {
@@ -23,6 +24,7 @@ public:
         while(i < a.size() && j < b.size() && a[i] == b[j]) { i++; j++;}
         return j == b.size() || i < a.size() && a[i] > b[j];
     }
+    // 此处因为调用的原因不能用&
     vector<int> merge(vector<int> a, vector<int> b) {
         vector<int> ans(a.size()+b.size());
         for(int i = 0, j = 0, k = 0; k < ans.size(); k++) 

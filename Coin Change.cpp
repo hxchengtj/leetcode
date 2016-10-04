@@ -19,3 +19,19 @@ public:
         return v.back().first == amount?v.back().second:-1;
     }
 };
+
+//version2
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        if(n == 0 || amount < 0) return -1;
+        vector<int> f(amount+1, -1);
+        f[0] = 0;
+        for(int i = 1; i <= amount; i++)
+            for(int j = 0; j < n; j++)
+                if(i >= coins[j] && f[i-coins[j]] != -1)
+                    f[i] = f[i] == -1?f[i-coins[j]]+1:min(f[i], f[i-coins[j]]+1);
+        return f[amount];
+    }
+};
