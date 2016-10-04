@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     void dfs(vector<string>& ans, string& s, string& x, int i, int countl, int countr) {
@@ -36,17 +37,6 @@ public:
         }
         for(int j = 0; j < t; j++) x.pop_back();
         dfs(ans, s, x, max(k, kk), countl, countr);
-        /*
-        if(s[i] == '(' && countl > 0) {
-            x.push_back(s[i]);
-            dfs(ans, s, x, i+1, countl-1, countr);
-            x.pop_back();
-        } else if(s[i] == ')' && countl < countr) { 
-            x.push_back(s[i]);
-            dfs(ans, s, x, i+1, countl, countr-1);
-            x.pop_back();
-        }
-        */
     }
     vector<string> removeInvalidParentheses(string s) {
         int a = 0, n = s.size(), count = 0;
@@ -61,5 +51,38 @@ public:
         string x;
         dfs(ans, s, x, 0, count, count);
         return ans;
+    }
+};
+
+//version2
+class Solution {
+public:
+    vector<string> removeInvalidParentheses(string s) {
+        int n = s.size();
+        vector<string> ans;
+        removeP(ans, s, 0, 0, {'(', ')'});
+        return ans;
+    }
+    //每次删掉一个同时避免重复,先去掉多余的')'
+    void removeP(vector<string>& ans, string s, int last_i, int last_j, pair<int, int> p) {
+        int cnt = 0;
+        for(int i = last_i; i < s.size(); i++) {
+            if(s[i] == p.first) cnt++;
+            else if(s[i] == p.second) cnt--;
+            if(cnt < 0) {
+                for(int j = last_j; j <= i; j++) {
+                    if(s[j] == p.second && (j == last_j || s[j-1] != s[j]))
+                        removeP(ans, s.substr(0, j)+s.substr(j+1), i, j, p);
+                }
+                return;
+            }
+        }
+        //reverse后去掉多余的'('
+        reverse(s.begin(), s.end());
+        if(p.first == '(')
+            removeP(ans, s, 0, 0, {')', '('});
+        else 
+            ans.push_back(s);
+        
     }
 };
