@@ -1,3 +1,4 @@
+/* review again */
 struct myTreeNode {
   myTreeNode* left;
   myTreeNode* right;
@@ -44,5 +45,46 @@ public:
            }
        }
        return ret;
+    }
+};
+
+
+//version2
+struct myNode {
+    int val;
+    int leftCnt;
+    int dup;
+    myNode* left;
+    myNode* right;
+    myNode(int a):val(a), leftCnt(0), dup(1), left(NULL), right(NULL) {}
+};
+
+class Solution {
+public:
+    vector<int> countSmaller(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans(n);
+        myNode* root = NULL;
+        for(int i = n-1; i >= 0; i--) {
+            root = insertNode(root, nums[i], ans[i]);
+        }
+        return ans;
+    }
+    myNode* insertNode(myNode* root, int a, int& x) {
+        if(root == NULL) {
+            root = new myNode(a);
+            return root;
+        }
+        if(root->val == a) {
+            root->dup++;
+            x += root->leftCnt;
+        } else if(root->val > a) {
+            root->leftCnt++;
+            root->left = insertNode(root->left, a, x);
+        } else {
+            x += root->leftCnt+root->dup;
+            root->right = insertNode(root->right, a, x);
+        }
+        return root;
     }
 };
