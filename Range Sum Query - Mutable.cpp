@@ -1,3 +1,4 @@
+/* review again */
 struct SegTreeNode {
     int start;
     int end;
@@ -49,6 +50,69 @@ private:
         return query_tree(root->left, start, end) + query_tree(root->right, start, end);
     }
 };
+
+//version2
+struct SegTreeNode {
+    int begin;
+    int end;
+    int sum;
+    SegTreeNode* left, *right;
+    SegTreeNode(int b, int e, int s):begin(b), end(e), sum(s), left(NULL), right(NULL) {}
+};
+class NumArray {
+public:
+    NumArray(vector<int> &nums) {
+        int n = nums.size();
+        vector<int> sum(n+1);
+        for(int i = 0; i < n; i++)
+            sum[i+1] = sum[i] + nums[i];
+        root = buildTree(sum, 0, n-1);
+    }
+
+    void update(int i, int val) {
+        modifyTree(root, val, i);
+    }
+
+    int sumRange(int i, int j) {
+        return queryTree(root, i, j);
+    }
+private:
+    SegTreeNode* root;
+    SegTreeNode* buildTree(vector<int>& sum, int begin, int end) {
+        if(begin > end) return NULL;
+        SegTreeNode* t = new SegTreeNode(begin, end, sum[end+1]-sum[begin]);
+        if(end - begin > 0) {
+            int mid = begin+(end-begin)/2;
+            t->left = buildTree(sum, begin, mid);
+            t->right = buildTree(sum, mid+1, end);
+        }
+        return t;
+    }
+    void modifyTree(SegTreeNode* root, int val, int idx) {
+        if(!root || idx < root->begin || idx > root->end) 
+            return;
+        if(root->begin == idx && root->end == idx)
+            root->sum = val;
+        else {
+            modifyTree(root->left, val, idx);
+            modifyTree(root->right, val, idx);
+            root->sum = root->left->sum + root->right->sum;
+        }
+    }
+    int queryTree(SegTreeNode* root, int i, int j) {
+        if(!root || j < root->begin || i > root->end)
+            return 0;
+        if(root->begin >= i && root->end <= j) return root->sum;
+        else return queryTree(root->left, i, j) + queryTree(root->right, i, j);
+    }
+};
+
+
+// Your NumArray object will be instantiated and called as such:
+// NumArray numArray(nums);
+// numArray.sumRange(0, 1);
+// numArray.update(1, 10);
+// numArray.sumRange(1, 2);
 
 
 // Your NumArray object will be instantiated and called as such:
