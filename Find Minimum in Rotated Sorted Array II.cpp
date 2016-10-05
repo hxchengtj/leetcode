@@ -39,7 +39,7 @@ public:
         while(l <= r) {
             int m = l + (r-l)/2;
             if(nums[r] < nums[m]) l = m+1;
-            else if(nums[r] < nums[m]) r = m-1;
+            else if(nums[r] > nums[m]) r = m;
             else r--;
         }
         return nums[l];
