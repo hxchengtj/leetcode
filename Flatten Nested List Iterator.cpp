@@ -49,3 +49,31 @@ public:
  * NestedIterator i(nestedList);
  * while (i.hasNext()) cout << i.next();
  */
+ 
+ 
+ //version2
+ class NestedIterator {
+    stack<NestedInteger> stk;
+public:
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        for(int i = nestedList.size()-1; i >= 0; i--)
+            stk.push(nestedList[i]);
+    }
+
+    int next() {
+        auto t = stk.top();
+        stk.pop();
+        return t.getInteger();
+    }
+
+    bool hasNext() {
+        while(!stk.empty() && !(stk.top().isInteger())) {
+            auto t = stk.top();
+            stk.pop();
+            auto v = t.getList();
+            for(int i = v.size()-1; i >= 0; i--)
+                stk.push(v[i]);
+        }
+        return !stk.empty();
+    }
+};
