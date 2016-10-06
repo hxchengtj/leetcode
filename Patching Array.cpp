@@ -19,3 +19,21 @@ public:
         return ans;
     }
 };
+
+//version2
+class Solution {
+public:
+    int minPatches(vector<int>& nums, int n) {
+        long long missed = 1;
+        int ans = 0, i = 0, m = nums.size();
+        while(missed <= n) {
+            if(i < m && missed >= nums[i]) {
+                missed += nums[i++];
+            } else {
+                missed += missed;
+                ans++;
+            }
+        }
+        return ans;
+    }
+};

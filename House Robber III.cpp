@@ -30,3 +30,18 @@ public:
         return max(a.first,a.second);
     }
 };
+
+//version2
+class Solution {
+public:
+    int rob(TreeNode* root) {
+        auto p = dfs(root);
+        return max(p.first, p.second);
+    }
+    pair<int, int> dfs(TreeNode* root) {
+        if(!root) return {0, 0};
+        auto lp = dfs(root->left);
+        auto rp = dfs(root->right);
+        return {lp.second+root->val+rp.second, max(lp.first, lp.second)+max(rp.first, rp.second)};
+    }
+};
