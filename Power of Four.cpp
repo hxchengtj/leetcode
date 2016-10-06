@@ -13,3 +13,11 @@ public:
         return (num&0x55555555) != 0 && countOne(num) == 1;
     }
 };
+
+//version2
+class Solution {
+public:
+    bool isPowerOfFour(int num) {
+        return num > 0 && (num & (num-1)) == 0 && (num&0x55555555) != 0;
+    }
+};
