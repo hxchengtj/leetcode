@@ -33,6 +33,7 @@ public:
     int maxEnvelopes(vector<pair<int, int>>& envelopes) {
         int n = envelopes.size();
         if(n == 0) return 0;
+        //此处的排序很重要，可以处理长宽相等的情况
         sort(envelopes.begin(), envelopes.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
             return a.first == b.first? a.second > b.second : a < b;
         });
