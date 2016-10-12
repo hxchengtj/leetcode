@@ -1,4 +1,4 @@
-// 之前貌似讲过这个题 好像能不断优化还是怎样? 忘记了> <
+/* review again */
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -72,4 +72,51 @@ int countNodes(TreeNode* root) {
   int h = get_left_height(root);
   return (1 << (h-1)) -1 + __countNodes(root, h);
 }
+
+//version2
+//recursive
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        if(!root) return 0;
+        int ln = 0, rn = 0;
+        TreeNode* l = root, *r = root;
+        while(l) {
+            ln++; l = l->left;
+        }
+        while(r) {
+            rn++; r = r->right;
+        }
+        //使用位运算 而不是pow, 速度会变快, 同时记得加括号,注意运算符优先级
+        if(ln == rn) return (1 << ln)-1;
+        // 切分后至少有一个会满足ln == rn
+        return 1 + countNodes(root->left) + countNodes(root->right);
+    }
+};
+
+//iterative
+class Solution {
+public:
+    int height(TreeNode* root) {
+        int n = -1;
+        while(root) {
+            n++; root = root->left;
+        }
+        return n;
+    }
+    int countNodes(TreeNode* root) {
+        int h = height(root), ans = 0;
+        while(root) {
+            if(height(root->right) == h-1) {
+                ans += (1 << h);
+                root = root->right;
+            } else {
+                ans += (1 << (h-1));
+                root = root->left;
+            }
+            h--;
+        }
+        return ans;
+    }
+};
 
