@@ -1,3 +1,4 @@
+/* review again */
 // hard
 // review
 class Solution {
@@ -113,3 +114,25 @@ double findMedianSorted(vector<int>& nums1, vector<int>& nums2) {
   return (m+n)%2 == 0? ans/2:ans;
 }
 
+//version2
+class Solution {
+public:
+    double findKth(vector<int>& nums1, vector<int>& nums2, int start1, int start2, int k) {
+        int n1 = nums1.size(), n2 = nums2.size();
+        if(start1 == n1) return nums2[start2+k-1];
+        if(start2 == n2) return nums1[start1+k-1];
+        if(k == 1) return min(nums1[start1], nums2[start2]);
+        int i = min({n1-start1, n2-start2, k/2});
+        if(nums1[start1+i-1] < nums2[start2+i-1])
+            return findKth(nums1, nums2, start1+i, start2, k-i);
+        else
+            return findKth(nums1, nums2, start1, start2+i, k-i);
+    }
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int n1 = nums1.size(), n2 = nums2.size();
+        if((n1+n2)&1 == 1) 
+            return findKth(nums1, nums2, 0, 0, (n1+n2)/2+1);
+        else 
+            return (findKth(nums1, nums2, 0, 0, (n1+n2)/2) + findKth(nums1, nums2, 0, 0, (n1+n2)/2+1)) / 2;
+    }
+};

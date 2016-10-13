@@ -1,3 +1,4 @@
+/* review again */
 class Solution {
 public:
     string longestPalindrome(string s) {
@@ -84,3 +85,28 @@ string longestPalindrome(string s) {
   return ans;
 }
 
+//version3
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        if(n <= 1) return s;
+        int ans = 0, i = 0, ansIdx = 0;
+        while(i < n) {
+            if(n-i <= ans/2) break;
+            int j = i, k = i;
+            while(k+1 < n && s[k+1] == s[k]) k++;
+            // 记得在这里就要记录i下次循环的位置
+            i = k+1;
+            while(j-1 >= 0 && k+1 < n && s[j-1] == s[k+1]) {
+                j--;
+                k++;
+            }
+            if(k-j+1 > ans) {
+                ans = max(ans, k-j+1);
+                ansIdx = j;
+            }
+        }
+        return s.substr(ansIdx, ans);
+    }
+};
